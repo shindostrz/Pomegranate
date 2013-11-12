@@ -7,6 +7,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div id="container">
+    <div id="user_nav">
+      <strong> Sign in!</strong><br>
+      <% if current_user %>
+      Welcome <strong><%= current_user.name %>!</strong>
+      <%= link_to "Sign Out", signout_path, id: "sign_out" %>
+      <% else %>
+      <%= link_to image_tag('twitter_64.png'), "/auth/twitter", id: "twitter_sign" %>
+      <%= link_to image_tag('facebook_64.png'), "/auth/facebook", id: "facebook_sign" %>
+      <% end %>
+    </div>
 
 <%= yield %>
 

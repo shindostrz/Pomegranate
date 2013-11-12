@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.14'
 
 gem 'pg'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'figaro'
 
 group :development, :test do
   gem 'rspec-rails'
