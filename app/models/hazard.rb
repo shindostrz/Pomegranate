@@ -7,4 +7,12 @@ class Hazard < ActiveRecord::Base
   validates :longitude, presence: true
   validates :hazard_type, presence: true
   validates :user_id, presence: true
+  
+  def format_pin
+    h = Hazard.all
+    output = []
+    h.each do |row|
+      output << [row.latitude, row.longitude, row.hazard_type, row.description]
+    end
+  end
 end
