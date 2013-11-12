@@ -2,6 +2,8 @@ development:
   adapter: postgresql
   database: development
   host: localhost
+  port: 5432
+  user: amy
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -11,6 +13,8 @@ test:
   database: test
   pool: 5
   timeout: 5000
+  host: localhost
+  user: amy
 
 production:
   adapter: postgresql
