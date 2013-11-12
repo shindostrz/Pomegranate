@@ -36,9 +36,9 @@
     //content info for hazards
     var infowindow = new google.maps.InfoWindow();
 
-    var infowindows = new google.maps.InfoWindow({
-    content: "<%form_for><%end%>",
-    });
+    // var infowindows = new google.maps.InfoWindow({
+    // content: "<input type="text" id="someInput">",
+    // });
 
     //marker dropped onto map
     var deaths, i;
@@ -60,13 +60,12 @@
       //push information about latlng to userdata array
       google.maps.event.addListener(map,'rightclick',function(e){
        placeMarker(e.latLng);
-       infowindows.open(map, marker);
+       infowindow.open(map, marker);
        UserData.push([e.latLng.ob,e.latLng.pb]);
        console.log(UserData)
+       // console.log(LocationData)
     });
-
-
-  }
+  };
 
   function placeMarker(location) {
     if (marker === undefined){
