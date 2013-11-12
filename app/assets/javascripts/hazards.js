@@ -12,15 +12,7 @@
       [37.775257, -122.420935, "Bicyclist badly hurt in S.F. crash"],
   ];
 
-// var hazards = [
-//     "<b>Get Directions From...</b><br />",
-//     "<form id='map-form'>",
-//     "Address/Postcode: <input id='map-from-address' type='text' />",
-//     "<input type='submit' id='map-go' value='Go' />",
-//     "</form>"
-// ].join("");
-
-// console.log(hazards)
+  var UserData = []
 
     //default area within san francisco
     var sfLatlng = new google.maps.LatLng(37.7833, -122.4167);
@@ -44,11 +36,9 @@
     //content info for hazards
     var infowindow = new google.maps.InfoWindow();
 
-    // var info = new google.maps.InfoWindow({
-    // content: hazards
-    // });
-
-    // console.log(info)
+    var infowindows = new google.maps.InfoWindow({
+    content: "<%form_for><%end%>",
+    });
 
     //marker dropped onto map
     var deaths, i;
@@ -67,10 +57,15 @@
         })(deaths, i));
       }
 
+      //push information about latlng to userdata array
       google.maps.event.addListener(map,'rightclick',function(e){
        placeMarker(e.latLng);
-
+       infowindows.open(map, marker);
+       UserData.push([e.latLng.ob,e.latLng.pb]);
+       console.log(UserData)
     });
+
+
   }
 
   function placeMarker(location) {
@@ -78,7 +73,7 @@
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(location.ob, location.pb),
             map: map,
-            animation: google.maps.Animation.DROP
+            animation: google.maps.Animation.DROP,
         });
     }
     else{
@@ -87,3 +82,5 @@
     map.setCenter(location);
     alert(marker.position);
 }
+
+
