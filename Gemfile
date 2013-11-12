@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.14'
-
+gem 'gmaps4rails'
 gem 'pg'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
