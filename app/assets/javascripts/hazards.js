@@ -9,7 +9,7 @@ function initialize() {
 
     //sample data from accidents
 
-    var LocationData = [
+    var locationData = [
       [37.769807, -122.4113, "Bicyclist struck, killed by Muni bus in SOMA"],
       [37.7749295, -122.4194155, "Bicyclist sentenced for manslaughter in SF crash"],
       [37.778524, -122.405634, "Bicyclist died in SoMa crash with truck"],
@@ -20,7 +20,7 @@ function initialize() {
       [37.775257, -122.420935, "Bicyclist badly hurt in S.F. crash"],
     ];
 
-    UserData = ["test"];
+    userData = ["test"];
 
     //default area within san francisco
     var sfLatlng = new google.maps.LatLng(37.7833, -122.4167);
@@ -65,10 +65,12 @@ function initialize() {
     //push information about latlng to userdata array
     google.maps.event.addListener(map,'rightclick',function(e){
       placeMarker(e.latLng);
-      UserData.push([e.latLng.ob,e.latLng.pb]);
-      infowindows.setContent(UserData[0]);
-      infowindows.open(map, marker);
+      //userData.push([e.latLng.ob,e.latLng.pb]);
+      //infowindows.setContent(userData[0]);
+      //infowindows.open(map, marker);
       console.log(marker);
+      $('#hazard_latitude').val(e.latLng.ob);
+      $('#hazard_longitude').val(e.latLng.pb);
     });
 
     //end of ajax done function
@@ -76,7 +78,7 @@ function initialize() {
 }
 
 
-function placeMarker(location) {
+function placeMarker(location, content) {
   if (marker === undefined){
       marker = new google.maps.Marker({
           position: new google.maps.LatLng(location.ob, location.pb),
@@ -85,7 +87,8 @@ function placeMarker(location) {
       });
       google.maps.event.addListener(marker, 'mouseover', (function(marker) {
         return function() {
-          infowindows.setContent(UserData[0]);
+          infowindows.setContent(content['hazard_type']);
+          console.log(content);
           infowindows.open(map, marker);
         };
       })(marker));
