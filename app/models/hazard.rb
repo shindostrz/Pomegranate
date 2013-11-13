@@ -7,7 +7,7 @@ class Hazard < ActiveRecord::Base
   validates :longitude, presence: true
   validates :hazard_type, presence: true
   validates :user_id, presence: true
-  
+
   def format_pin
     h = Hazard.all
     output = []
