@@ -2,6 +2,7 @@ var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_t
 
 var marker;
 function initialize() {
+
   //call to controller for hazard database info
   $.ajax({
     url: '/hazards.json',
