@@ -10,7 +10,7 @@ describe User do
     it { should validate_uniqueness_of(:uid) }
 
   describe 'self.create_with_omniauth(auth)' do
-    let(:user) { create(:user, :with_omniauth }
+    # let(:user) { create(:user, :with_omniauth }
   #   it "should create a user with omniauth properties" do
   #     test = User.new
   #     user.provider
