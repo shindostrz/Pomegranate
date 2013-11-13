@@ -14,5 +14,6 @@ class Hazard < ActiveRecord::Base
     h.each do |row|
       output << [row.latitude, row.longitude, row.hazard_type, row.description]
     end
+    return output
   end
 end
