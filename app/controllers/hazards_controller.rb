@@ -1,6 +1,7 @@
 class HazardsController < ApplicationController
 
   def index
+    @hazard = Hazard.new
   end
 
   def show
@@ -10,6 +11,17 @@ class HazardsController < ApplicationController
   end
 
   def create
+    @user = current_user
+    @new_hazard = @user.hazards.create(params[:hazard])
+    
+    
+    # if @new_hazard.errors
+    #   flash[:error] = "Danger Will Robinson!"
+    # end
+    
+    respond_to do |format|
+      format.js
+    end
   end
 
   def edit
@@ -19,6 +31,7 @@ class HazardsController < ApplicationController
   end
 
   def destroy
+    
   end
 
 end
