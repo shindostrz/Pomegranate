@@ -4,7 +4,7 @@ class HazardsController < ApplicationController
     # @hazards = Hazard.all
     @hazard = Hazard.new
     @hazards = @hazard.format_pin
-    
+
     respond_to do |format|
       format.html
       format.json { render :json => @hazards }
@@ -20,12 +20,13 @@ class HazardsController < ApplicationController
   def create
     @user = current_user
     @new_hazard = @user.hazards.create(params[:hazard])
-    
-    
+    @marker = "#{@new_hazard['latitude']}, #{@new_hazard['longitude']}"
+    p @marker
+
     # if @new_hazard.errors
     #   flash[:error] = "Danger Will Robinson!"
     # end
-    
+
     respond_to do |format|
       format.js
     end
@@ -38,7 +39,7 @@ class HazardsController < ApplicationController
   end
 
   def destroy
-    
+
   end
 
 end
