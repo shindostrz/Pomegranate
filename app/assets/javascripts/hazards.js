@@ -62,12 +62,9 @@ function initialize() {
       })(deaths, i));
     }
 
-    //push information about latlng to userdata array
+    //grabs lat and long from marker for form
     google.maps.event.addListener(map,'rightclick',function(e){
-      placeMarker(e.latLng);
-      //userData.push([e.latLng.ob,e.latLng.pb]);
-      //infowindows.setContent(userData[0]);
-      //infowindows.open(map, marker);
+      userMarker(e.latLng);
       console.log(marker);
       $('#hazard_latitude').val(e.latLng.ob);
       $('#hazard_longitude').val(e.latLng.pb);
@@ -77,27 +74,23 @@ function initialize() {
   });
 }
 
-
-function placeMarker(location, content) {
-  if (marker === undefined){
-      marker = new google.maps.Marker({
-          position: new google.maps.LatLng(location.ob, location.pb),
-          map: map,
-          animation: google.maps.Animation.DROP,
-      });
-      google.maps.event.addListener(marker, 'mouseover', (function(marker) {
-        return function() {
-          infowindows.setContent(content['hazard_type']);
-          console.log(content);
-          infowindows.open(map, marker);
-        };
-      })(marker));
-  }
-  else{
-      marker.setPosition(location);
-  }
+//user places new marker on map
+function userMarker(location) {
+  marker = new google.maps.Marker({
+    position: new google.maps.LatLng(location.ob, location.pb),
+    map: map,
+    animation: google.maps.Animation.DROP,
+  });
   map.setCenter(location);
-  alert(marker.position);
+  $('#hazard_button').on('click', function(e) {
+    event.preventDefault();
+    google.maps.event.addListener(marker, 'mouseover', (function(marker) {
+      return function() {
+        infowindows.setContent($('#hazard_hazard_type').val());
+        infowindows.open(map, marker);
+      };
+    })(marker));
+  });
 }
 
 //Disclosure widget for form
