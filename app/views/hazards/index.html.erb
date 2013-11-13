@@ -1,14 +1,12 @@
 <div id="sidebar">
-  <div id="marker_form">
-    <h2>Add Marker</h2>
-    <%= form_for @hazard, remote: true do |f| %>
-      <%= f.text_field :latitude, placeholder: "Latitude", required: true %><br>
-      <%= f.text_field :longitude, placeholder: "Longitude", required: true %><br>
-      <%= f.select(:hazard_type, [['Construction', 'Construction'],['Pothole', 'Pothole'],['Unpaved Road', 'Unpaved Road'], ['Frequent Wildlife', 'Frequent Wildlife'], ['Other', 'Other']]) %><br>
-      <%= f.text_area :description, placeholder: "Optional Description", rows: 4, cols: 24 %>
-      <%= f.submit "Add" %>
-    <% end %>
+  <div id="form_disclosure">
+    <img src="assets/arrow-33-xxl.png" id="arrow"><h2>Add Marker</h2>
   </div>
+  
+  <div id="marker_form" class="hidden">
+    <%= render 'form', :hazard => @hazard %>
+  </div>
+
 </div>
 
 <div id="map-canvas"></div>
