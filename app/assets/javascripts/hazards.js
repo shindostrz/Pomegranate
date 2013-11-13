@@ -1,6 +1,5 @@
-  var marker;
   function initialize() {
-    
+
     //call to controller for hazard database info
     $.ajax({
       url: '/hazards.json',
@@ -8,6 +7,7 @@
     }).done(function(data) {
       var hazardData = data;
 
+    //sample data from accidents
     var LocationData = [
       [37.769807, -122.4113, "Bicyclist struck, killed by Muni bus in SOMA"],
       [37.7749295, -122.4194155, "Bicyclist sentenced for manslaughter in SF crash"],
@@ -18,8 +18,8 @@
       [37.7749295, -122.4194155, "Warrant for cyclist accused of killing pedestrian"],
       [37.775257, -122.420935, "Bicyclist badly hurt in S.F. crash"],
   ];
-
-UserData = ["test"]
+    //user data
+    UserData = ["test"];
 
     //default area within san francisco
     var sfLatlng = new google.maps.LatLng(37.7833, -122.4167);
@@ -42,7 +42,7 @@ UserData = ["test"]
 
     //content info for hazards
      infowindow = new google.maps.InfoWindow();
-
+     //content info for user inputed information
     infowindows = new google.maps.InfoWindow();
 
     //marker dropped onto map
@@ -53,32 +53,37 @@ UserData = ["test"]
         position: new google.maps.LatLng(LocationData[i][0], LocationData[i][1]),
         animation: google.maps.Animation.DROP,map:map
       });
+       //listener that looks for a mouseover and displays the locationdata information
        google.maps.event.addListener(deaths, 'mouseover', (function(deaths, i) {
           return function() {
             infowindow.setContent(LocationData[i][2]);
             infowindow.open(map, deaths);
-
           };
         })(deaths, i));
       }
 
       //push information about latlng to userdata array
       google.maps.event.addListener(map,'rightclick',function(e){
+        //finds the latLng within the placeMarker
        placeMarker(e.latLng);
+       //pushes latlng data into UserData
        UserData.push([e.latLng.ob,e.latLng.pb]);
+       //displays the userdata from the above array
        infowindows.setContent(UserData[0]);
+       //opens the marker
        infowindows.open(map, marker);
        console.log(marker);
     });
     //end of ajax done function
     });
   };
-
+}
   function placeMarker(location) {
     if (marker === undefined){
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(location.ob, location.pb),
             map: map,
+            // icon: '',
             animation: google.maps.Animation.DROP,
         })
          google.maps.event.addListener(marker, 'mouseover', (function(marker) {
@@ -92,12 +97,12 @@ UserData = ["test"]
         marker.setPosition(location);
     }
     map.setCenter(location);
-    alert(marker.position);
+    // alert(marker.position);
 }
 
 //Disclosure widget for form
 $(document).ready(function() {
-  
+
   $('#form_disclosure').on('click', function(event) {
     event.preventDefault();
     if ($('#marker_form').hasClass('hidden')) {
