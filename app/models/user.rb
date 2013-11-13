@@ -3,6 +3,12 @@ class User < ActiveRecord::Base
 
   has_many :hazards
 
+  validates :name, presence: true
+  validates :provider, presence: true
+  validates :uid, presence: true, uniqueness: true
+  #will not allow a duplicate uid into the database (unique)
+
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth["provider"]
