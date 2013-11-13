@@ -1,5 +1,12 @@
   var marker;
   function initialize() {
+    
+    //call to controller for hazard database info
+    $.ajax({
+      url: '/hazards.json',
+      type: 'GET'
+    }).done(function(data) {
+      var hazardData = data;
 
     var LocationData = [
       [37.769807, -122.4113, "Bicyclist struck, killed by Muni bus in SOMA"],
@@ -63,7 +70,8 @@ UserData = ["test"]
        infowindows.open(map, marker);
        console.log(marker);
     });
-
+    //end of ajax done function
+    });
   };
 
   function placeMarker(location) {
@@ -89,6 +97,7 @@ UserData = ["test"]
 
 //Disclosure widget for form
 $(document).ready(function() {
+  
   $('#form_disclosure').on('click', function(event) {
     event.preventDefault();
     if ($('#marker_form').hasClass('hidden')) {
@@ -97,4 +106,5 @@ $(document).ready(function() {
       $('#marker_form').addClass('hidden');
     }
   })
+
 });
