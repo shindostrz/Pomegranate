@@ -1,3 +1,5 @@
+var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= timestamp %></small><p>');
+
 var marker;
 function initialize() {
   //call to controller for hazard database info
@@ -56,7 +58,7 @@ function initialize() {
       });
       google.maps.event.addListener(deaths, 'mouseover', (function(deaths, i) {
         return function() {
-          infowindow.setContent(hazardData[i][2]);
+          infowindow.setContent(hazardData[i][2] + "<br>Testing this out");
           infowindow.open(map, deaths);
         };
       })(deaths, i));
