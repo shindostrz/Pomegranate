@@ -23,6 +23,40 @@ function initialize() {
       [37.775257, -122.420935, "Bicyclist badly hurt in S.F. crash"],
     ];
 
+//toogle button for bicycle routes legend
+
+var controlDiv = document.createElement('DIV');
+$(controlDiv).addClass('gmap-control-container')
+             .addClass('gmnoprint');
+
+var controlUI = document.createElement('DIV');
+$(controlUI).addClass('gmap-control');
+$(controlUI).text('Bicycle Routes');
+$(controlDiv).append(controlUI);
+
+var legend = '<ul>'
+           + '<li><span class="trail">&nbsp;&nbsp;</span><span> Trails </span></li>'
+           + '<li><span class="dedicated-lane">&nbsp;&nbsp;</span><span> Dedicated lanes </span></li>'
+           + '<li><span class="friendly">&nbsp;&nbsp;</span><span> Bicycle friendly roads </span></li>'
+           + '</ul>';
+
+var controlLegend = document.createElement('DIV');
+$(controlLegend).addClass('gmap-control-legend');
+$(controlLegend).html(legend);
+$(controlLegend).hide();
+$(controlDiv).append(controlLegend);
+
+// Set hover toggle event
+$(controlUI)
+    .mouseenter(function() {
+        $(controlLegend).show();
+    })
+    .mouseleave(function() {
+        $(controlLegend).hide();
+    });
+
+//
+
     //default area within san francisco
     var sfLatlng = new google.maps.LatLng(37.7833, -122.4167);
 
@@ -72,6 +106,10 @@ function initialize() {
     });
 
     //end of ajax done function
+
+
+map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
+
   });
 }
 
