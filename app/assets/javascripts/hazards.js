@@ -12,7 +12,7 @@
       [37.775257, -122.420935, "Bicyclist badly hurt in S.F. crash"],
   ];
 
-  var UserData = []
+UserData = ["test"]
 
     //default area within san francisco
     var sfLatlng = new google.maps.LatLng(37.7833, -122.4167);
@@ -34,11 +34,9 @@
     bikeLayer.setMap(map);
 
     //content info for hazards
-    var infowindow = new google.maps.InfoWindow();
+     infowindow = new google.maps.InfoWindow();
 
-    // var infowindows = new google.maps.InfoWindow({
-    // content: "<input type="text" id="someInput">",
-    // });
+    infowindows = new google.maps.InfoWindow();
 
     //marker dropped onto map
     var deaths, i;
@@ -48,7 +46,7 @@
         position: new google.maps.LatLng(LocationData[i][0], LocationData[i][1]),
         animation: google.maps.Animation.DROP,map:map
       });
-       google.maps.event.addListener(deaths, 'click', (function(deaths, i) {
+       google.maps.event.addListener(deaths, 'mouseover', (function(deaths, i) {
           return function() {
             infowindow.setContent(LocationData[i][2]);
             infowindow.open(map, deaths);
@@ -60,11 +58,12 @@
       //push information about latlng to userdata array
       google.maps.event.addListener(map,'rightclick',function(e){
        placeMarker(e.latLng);
-       infowindow.open(map, marker);
        UserData.push([e.latLng.ob,e.latLng.pb]);
-       console.log(UserData)
-       // console.log(LocationData)
+       infowindows.setContent(UserData[0]);
+       infowindows.open(map, marker);
+       console.log(marker);
     });
+
   };
 
   function placeMarker(location) {
@@ -73,7 +72,13 @@
             position: new google.maps.LatLng(location.ob, location.pb),
             map: map,
             animation: google.maps.Animation.DROP,
-        });
+        })
+         google.maps.event.addListener(marker, 'mouseover', (function(marker) {
+          return function() {
+            infowindows.setContent(UserData[0]);
+            infowindows.open(map, marker);
+          };
+        })(marker))
     }
     else{
         marker.setPosition(location);
