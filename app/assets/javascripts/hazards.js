@@ -1,13 +1,11 @@
-  var marker;
-  function initialize() {
-
-
-    //call to controller for hazard database info
-    $.ajax({
-      url: '/hazards.json',
-      type: 'GET'
-    }).done(function(data) {
-      var hazardData = data;
+var marker;
+function initialize() {
+  //call to controller for hazard database info
+  $.ajax({
+    url: '/hazards.json',
+    type: 'GET'
+  }).done(function(data) {
+    var hazardData = data;
 
     //sample data from accidents
 
@@ -20,9 +18,9 @@
       [37.786543, -122.414801, "Bicyclist injured in collision with Muni Bus "],
       [37.7749295, -122.4194155, "Warrant for cyclist accused of killing pedestrian"],
       [37.775257, -122.420935, "Bicyclist badly hurt in S.F. crash"],
-  ];
+    ];
 
-UserData = ["test"]
+    UserData = ["test"];
 
     //default area within san francisco
     var sfLatlng = new google.maps.LatLng(37.7833, -122.4167);
@@ -44,63 +42,59 @@ UserData = ["test"]
     bikeLayer.setMap(map);
 
     //content info for hazards
-     infowindow = new google.maps.InfoWindow();
+    infowindow = new google.maps.InfoWindow();
 
     infowindows = new google.maps.InfoWindow();
 
     //marker dropped onto map
     var deaths, i;
-    for (i=0; i< LocationData.length; i++){
+    for (i=0; i< hazardData.length; i++){
       deaths = new google.maps.Marker({
         // icon: '',
-        position: new google.maps.LatLng(LocationData[i][0], LocationData[i][1]),
+        position: new google.maps.LatLng(hazardData[i][0], hazardData[i][1]),
         animation: google.maps.Animation.DROP,map:map
       });
-       google.maps.event.addListener(deaths, 'mouseover', (function(deaths, i) {
-          return function() {
-            infowindow.setContent(LocationData[i][2]);
-            infowindow.open(map, deaths);
+      google.maps.event.addListener(deaths, 'mouseover', (function(deaths, i) {
+        return function() {
+          infowindow.setContent(hazardData[i][2]);
+          infowindow.open(map, deaths);
+        };
+      })(deaths, i));
+    }
 
-          };
-        })(deaths, i));
-      }
-
-      //push information about latlng to userdata array
-      google.maps.event.addListener(map,'rightclick',function(e){
-       placeMarker(e.latLng);
-       UserData.push([e.latLng.ob,e.latLng.pb]);
-       infowindows.setContent(UserData[0]);
-       infowindows.open(map, marker);
-       console.log(marker);
+    //push information about latlng to userdata array
+    google.maps.event.addListener(map,'rightclick',function(e){
+      placeMarker(e.latLng);
+      UserData.push([e.latLng.ob,e.latLng.pb]);
+      infowindows.setContent(UserData[0]);
+      infowindows.open(map, marker);
+      console.log(marker);
     });
 
     //end of ajax done function
-    });
-  };
+  });
 }
 
-  };
 
-
-  function placeMarker(location) {
-    if (marker === undefined){
-        marker = new google.maps.Marker({
-            position: new google.maps.LatLng(location.ob, location.pb),
-            map: map,
-            animation: google.maps.Animation.DROP,
-        })
-         google.maps.event.addListener(marker, 'mouseover', (function(marker) {
-          return function() {
-            infowindows.setContent(UserData[0]);
-            infowindows.open(map, marker);
-          };
-        })(marker))
-    }
-    else{
-        marker.setPosition(location);
-    }
-    map.setCenter(location);
-    alert(marker.position);
+function placeMarker(location) {
+  if (marker === undefined){
+      marker = new google.maps.Marker({
+          position: new google.maps.LatLng(location.ob, location.pb),
+          map: map,
+          animation: google.maps.Animation.DROP,
+      });
+      google.maps.event.addListener(marker, 'mouseover', (function(marker) {
+        return function() {
+          infowindows.setContent(UserData[0]);
+          infowindows.open(map, marker);
+        };
+      })(marker));
+  }
+  else{
+      marker.setPosition(location);
+  }
+  map.setCenter(location);
+  alert(marker.position);
 }
 
 //Disclosure widget for form
@@ -112,20 +106,5 @@ $(document).ready(function() {
     } else {
       $('#marker_form').addClass('hidden');
     }
-  })
+  });
 });
-
-//Disclosure widget for form
-$(document).ready(function() {
-
-  $('#form_disclosure').on('click', function(event) {
-    event.preventDefault();
-    if ($('#marker_form').hasClass('hidden')) {
-      $('#marker_form').removeClass('hidden');
-    } else {
-      $('#marker_form').addClass('hidden');
-    }
-  })
-
-});
-
