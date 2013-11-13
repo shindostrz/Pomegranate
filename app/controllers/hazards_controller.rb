@@ -1,7 +1,14 @@
 class HazardsController < ApplicationController
 
   def index
+    # @hazards = Hazard.all
     @hazard = Hazard.new
+    @hazards = @hazard.format_pin
+    
+    respond_to do |format|
+      format.html
+      format.json { render :json => @hazards }
+    end
   end
 
   def show
