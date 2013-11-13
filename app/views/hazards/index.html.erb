@@ -1,5 +1,18 @@
-  <div id="map-canvas"></div>
+<div id="sidebar">
+  <div id="marker_form">
+    <h2>Add Marker</h2>
+    <%= form_for @hazard, remote: true do |f| %>
+      <%= f.text_field :latitude, placeholder: "Latitude", required: true %><br>
+      <%= f.text_field :longitude, placeholder: "Longitude", required: true %><br>
+      <%= f.select(:hazard_type, [['Construction', 'Construction'],['Pothole', 'Pothole'],['Unpaved Road', 'Unpaved Road'], ['Frequent Wildlife', 'Frequent Wildlife'], ['Other', 'Other']]) %><br>
+      <%= f.text_area :description, placeholder: "Optional Description", rows: 4, cols: 24 %>
+      <%= f.submit "Add" %>
+    <% end %>
+  </div>
+</div>
 
-  <script>
-    google.maps.event.addDomListener(window, 'load', initialize);
-  </script>
+<div id="map-canvas"></div>
+
+<script>
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
