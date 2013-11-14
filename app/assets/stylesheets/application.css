@@ -11,4 +11,27 @@
  *= require_self
  *= require_tree .
  */
+body {
+  background-color: pink;
+}
 
+#user-nav {
+  background-color: red;
+  width: 90%;
+  margin: 0 auto;
+}
+
+#blurb {
+  background-color: orange;
+  width: 90%;
+  margin: 0 auto;
+  padding: .00345em;
+  text-align: center;
+}
+p {
+  font-family: "brandon-grotesque";
+  background-color: blue;
+}
+#sidebar {
+  background-color: yellow;
+}
