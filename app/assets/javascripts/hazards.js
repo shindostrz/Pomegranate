@@ -134,7 +134,6 @@ function userMarker(location) {
     position: new google.maps.LatLng(location.ob, location.pb),
     map: map,
     animation: google.maps.Animation.DROP,
-    // zoom: 13
   });
   map.setCenter(location);
   $('#hazard_button').on('click', function(e) {
