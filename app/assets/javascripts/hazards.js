@@ -137,7 +137,6 @@ function userMarker(location) {
   });
   map.setCenter(location);
   $('#hazard_button').on('click', function(e) {
-    event.preventDefault();
     google.maps.event.addListener(marker, 'mouseover', (function(marker) {
       return function() {
         infowindows.setContent($('#hazard_hazard_type').val());
