@@ -25,5 +25,12 @@ class AccidentsController < ApplicationController
   end
 
   def destroy
+    Hazard.delete(params[:id])
+    @id = params[:id]
+
+    respond_to do |format|
+      format.js
+    end
   end
+
 end
