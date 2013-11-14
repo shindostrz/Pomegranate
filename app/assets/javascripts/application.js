@@ -19,7 +19,7 @@ $(document).ready(function() {
 
   $('.form_disclosure').on('click', function(event) {
     event.preventDefault();
-    $(this).find('div').toggleClass('hidden');
+    $(this).next('div').toggleClass('hidden');
   });
 
 });
