@@ -2,6 +2,7 @@ var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_t
 
 var marker;
 function initialize() {
+
   //call to controller for hazard database info
   $.ajax({
     url: '/hazards.json',
@@ -21,6 +22,40 @@ function initialize() {
       [37.7749295, -122.4194155, "Warrant for cyclist accused of killing pedestrian"],
       [37.775257, -122.420935, "Bicyclist badly hurt in S.F. crash"],
     ];
+
+//toogle button for bicycle routes legend
+
+    var controlDiv = document.createElement('DIV');
+      $(controlDiv).addClass('gmap-control-container')
+                   .addClass('gmnoprint');
+
+    var controlUI = document.createElement('DIV');
+      $(controlUI).addClass('gmap-control');
+      $(controlUI).text('Bicycle Routes');
+      $(controlDiv).append(controlUI);
+
+    var legend = '<ul>'
+               + '<li><span class="trail">&nbsp;&nbsp;</span><span> Trails </span></li>'
+               + '<li><span class="dedicated-lane">&nbsp;&nbsp;</span><span> Dedicated lanes </span></li>'
+               + '<li><span class="friendly">&nbsp;&nbsp;</span><span> Bicycle friendly roads </span></li>'
+               + '</ul>';
+
+    var controlLegend = document.createElement('DIV');
+      $(controlLegend).addClass('gmap-control-legend');
+      $(controlLegend).html(legend);
+      $(controlLegend).hide();
+      $(controlDiv).append(controlLegend);
+
+    // Set hover toggle event
+    $(controlUI)
+      .mouseenter(function() {
+          $(controlLegend).show();
+      })
+      .mouseleave(function() {
+          $(controlLegend).hide();
+      });
+
+//
 
     //default area within san francisco
     var sfLatlng = new google.maps.LatLng(37.7833, -122.4167);
@@ -70,7 +105,26 @@ function initialize() {
       $('#hazard_longitude').val(e.latLng.pb);
     });
 
+///
+
+var markersArray = [];
+for (i = 0; i < hazardData.length; i++) {
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(hazardData[i][0], hazardData[i][1]),
+      map: map,
+    });
+   markersArray.push(marker);
+}
+var mcOptions = {gridSize: 50, maxZoom:15};
+var mc = new MarkerClusterer(map,markersArray, mcOptions)
+
+console.log(mc)
+//
     //end of ajax done function
+
+    //append toogle button to the top right of map
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
+
   });
 }
 
