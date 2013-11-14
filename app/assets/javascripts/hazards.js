@@ -118,7 +118,6 @@ for (i = 0; i < hazardData.length; i++) {
 }
 var mcOptions = {gridSize: 50, maxZoom:15};
 var mc = new MarkerClusterer(map,markersArray, mcOptions)
-
 console.log(mc)
 //
   //append toogle button to the top right of map
