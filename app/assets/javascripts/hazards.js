@@ -1,4 +1,4 @@
-var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= timestamp %></small><p>');
+var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= created_at %></small><p><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow" onclick="initialize()">Delete</a></p>');
 
 var marker;
 function initialize() {
@@ -21,8 +21,6 @@ function initialize() {
       [37.7749295, -122.4194155, "Warrant for cyclist accused of killing pedestrian"],
       [37.775257, -122.420935, "Bicyclist badly hurt in S.F. crash"],
     ];
-
-    userData = ["test"];
 
     //default area within san francisco
     var sfLatlng = new google.maps.LatLng(37.7833, -122.4167);
@@ -50,19 +48,19 @@ function initialize() {
 
     //marker dropped onto map
     var deaths, i;
-    for (i=0; i< hazardData.length; i++){
+    _.each(hazardData, function(hazard) {
       deaths = new google.maps.Marker({
         // icon: '',
-        position: new google.maps.LatLng(hazardData[i][0], hazardData[i][1]),
+        position: new google.maps.LatLng(hazard['latitude'], hazard['longitude']),
         animation: google.maps.Animation.DROP,map:map
       });
       google.maps.event.addListener(deaths, 'mouseover', (function(deaths, i) {
         return function() {
-          infowindow.setContent(hazardData[i][2] + "<br>Testing this out");
+          infowindow.setContent(infoWindowTemplate(hazard));
           infowindow.open(map, deaths);
         };
       })(deaths, i));
-    }
+    });
 
     //grabs lat and long from marker for form
     google.maps.event.addListener(map,'rightclick',function(e){
@@ -93,6 +91,10 @@ function userMarker(location) {
       };
     })(marker));
   });
+}
+
+function clearMarker() {
+  marker.setMap(null);
 }
 
 //Disclosure widget for form
