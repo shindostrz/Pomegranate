@@ -2,12 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-html, body, #map-canvas
-  {
+html, body, #map-canvas {
   height: 100%;
   margin: 0px;
   padding: 0px
-  }
+}
+
+#user-nav {
+  margin-bottom: 1.5em;
+}
 
 .hidden {
   display: none;
@@ -16,6 +19,12 @@ html, body, #map-canvas
 #arrow {
   width: 20px;
   float: left;
+}
+
+#sidebar {
+  float: left;
+  width: 20%;
+  padding: 0.5em;
 }
 
 .gmap-control-container {
