@@ -1,4 +1,4 @@
-var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= created_at %></small><p>');
+var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= created_at %></small><p><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow" onclick="initialize()">Delete</a></p>');
 
 var marker;
 function initialize() {
@@ -61,19 +61,6 @@ function initialize() {
         };
       })(deaths, i));
     });
-    // for (i=0; i< hazardData.length; i++){
-    //   deaths = new google.maps.Marker({
-    //     // icon: '',
-    //     position: new google.maps.LatLng(hazardData[i][0], hazardData[i][1]),
-    //     animation: google.maps.Animation.DROP,map:map
-    //   });
-    //   google.maps.event.addListener(deaths, 'mouseover', (function(deaths, i) {
-    //     return function() {
-    //       infowindow.setContent(hazardData[i][2] + "<br>Testing this out");
-    //       infowindow.open(map, deaths);
-    //     };
-    //   })(deaths, i));
-    // }
 
     //grabs lat and long from marker for form
     google.maps.event.addListener(map,'rightclick',function(e){
@@ -104,6 +91,10 @@ function userMarker(location) {
       };
     })(marker));
   });
+}
+
+function clearMarker() {
+  marker.setMap(null);
 }
 
 //Disclosure widget for form
