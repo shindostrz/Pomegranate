@@ -98,7 +98,7 @@ function initialize() {
     });
 
     //grabs lat and long from marker for form
-    google.maps.event.addListener(map,'rightclick',function(e){
+    google.maps.event.addListener(map,'click',function(e){
       userMarker(e.latLng);
       console.log(marker);
       $('#marker_form').toggleClass('hidden');
@@ -134,6 +134,7 @@ function userMarker(location) {
     position: new google.maps.LatLng(location.ob, location.pb),
     map: map,
     animation: google.maps.Animation.DROP,
+    // zoom: 13
   });
   map.setCenter(location);
   $('#hazard_button').on('click', function(e) {
