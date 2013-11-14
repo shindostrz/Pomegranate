@@ -16,12 +16,10 @@
 
 //Disclosure widget for form
 $(document).ready(function() {
-  $('#form_disclosure').on('click', function(event) {
+
+  $('.form_disclosure').on('click', function(event) {
     event.preventDefault();
-    if ($('#marker_form').hasClass('hidden')) {
-      $('#marker_form').removeClass('hidden');
-    } else {
-      $('#marker_form').addClass('hidden');
-    }
+    $(this).next('div').toggleClass('hidden');
   });
+
 });

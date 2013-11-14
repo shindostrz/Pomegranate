@@ -1,4 +1,12 @@
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= created_at %></small><p><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow" onclick="initialize()">Delete</a></p>');
+var ACCIDENT_DATA;
+
+ $.ajax({
+    url: '/accidents.json',
+    type: 'GET'
+  }).done(function(data) {
+    ACCIDENT_DATA = data;
+  });
 
 var marker;
 function initialize() {
@@ -55,7 +63,6 @@ function initialize() {
           $(controlLegend).hide();
       });
 
-//
 
     //default area within san francisco
     var sfLatlng = new google.maps.LatLng(37.7833, -122.4167);
@@ -79,22 +86,43 @@ function initialize() {
     //content info for hazards
     infowindow = new google.maps.InfoWindow();
 
-    infowindows = new google.maps.InfoWindow();
 
-    //marker dropped onto map
-    var deaths, i;
+    var markersArray = [];
+    //marker dropped onto map for hazards
+    var hazards, i;
     _.each(hazardData, function(hazard) {
-      deaths = new google.maps.Marker({
+      hazards = new google.maps.Marker({
         // icon: '',
         position: new google.maps.LatLng(hazard['latitude'], hazard['longitude']),
-        animation: google.maps.Animation.DROP,map:map
+        animation: google.maps.Animation.DROP,
+        map:map
       });
-      google.maps.event.addListener(deaths, 'click', (function(deaths, i) {
+      markersArray.push(hazards);
+      google.maps.event.addListener(hazards, 'click', (function(hazards, i) {
         return function() {
           infowindow.setContent(infoWindowTemplate(hazard));
+          infowindow.open(map, hazards);
+        };
+      })(hazards, i));
+    });
+
+
+    //marker dropped onto map for accidents
+    var deaths, x;
+    _.each(ACCIDENT_DATA, function(accident) {
+      deaths = new google.maps.Marker({
+        // icon: '',
+        position: new google.maps.LatLng(accident['latitude'], accident['longitude']),
+        animation: google.maps.Animation.DROP,
+        map: map
+      });
+      markersArray.push(deaths);
+      google.maps.event.addListener(deaths, 'click', (function(deaths, x) {
+        return function() {
+          infowindow.setContent("Bicycle Accident");
           infowindow.open(map, deaths);
         };
-      })(deaths, i));
+      })(deaths, x));
     });
 
     //grabs lat and long from marker for form
@@ -106,19 +134,12 @@ function initialize() {
       $('#hazard_longitude').val(e.latLng.pb);
     });
 
-///
 
-var markersArray = [];
-for (i = 0; i < hazardData.length; i++) {
-    marker = new google.maps.Marker({
-      position: new google.maps.LatLng(hazardData[i][0], hazardData[i][1]),
-      map: map,
-    });
-   markersArray.push(marker);
-}
 var mcOptions = {gridSize: 50, maxZoom:15};
-var mc = new MarkerClusterer(map,markersArray, mcOptions)
-console.log(mc)
+
+var mc = new MarkerClusterer(map,markersArray, mcOptions);
+
+console.log(mc);
 //
   //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
@@ -131,7 +152,7 @@ console.log(mc)
 function userMarker(location) {
   var hasMarker = false;
   if(google.maps.Marker === null ) {
-    console.log("in if")
+    console.log("in if");
   }
   else {
     hasMarker = true;
@@ -156,10 +177,9 @@ function userMarker(location) {
         };
       })(marker));
     });
-}
+  }
 
 }
-
 
 
 function clearMarker() {

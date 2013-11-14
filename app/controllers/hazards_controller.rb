@@ -4,6 +4,8 @@ class HazardsController < ApplicationController
     @hazard = Hazard.new
     @hazards = Hazard.all
 
+    @accident = Accident.new
+
     respond_to do |format|
       format.html
       format.json { render :json => @hazards }
@@ -20,7 +22,6 @@ class HazardsController < ApplicationController
     @user = current_user
     @new_hazard = @user.hazards.create(params[:hazard])
     @marker = "#{@new_hazard['latitude']}, #{@new_hazard['longitude']}"
-    p @marker
 
     # if @new_hazard.errors
     #   flash[:error] = "Danger Will Robinson!"

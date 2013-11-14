@@ -1,11 +1,19 @@
 <div id="sidebar">
   <% if current_user %>
-    <div id="form_disclosure">
+    <div class="form_disclosure">
       <img src="assets/arrow-33-xxl.png" id="arrow"><h2>Add Hazard</h2>
     </div>
 
-    <div id="marker_form" class="hidden">
-      <%= render 'form', :hazard => @hazard %>
+    <div id="hazard-form" class="hidden">
+      <%= render 'hazard_form', :hazard => @hazard %>
+    </div>
+
+    <div class="form_disclosure">
+      <img src="assets/arrow-33-xxl.png" id="arrow"><h2>Add Accident</h2>
+    </div>
+
+    <div id="accident-form" class="hidden">
+      <%= render 'accidents/accident_form', :accident => @accident %>
     </div>
   <% end %>
 
