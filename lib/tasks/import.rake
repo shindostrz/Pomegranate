@@ -18,8 +18,10 @@ task :import => :environment do
       :details => "Bay Citizen data, 2009-10"
       })
     rescue
-      p "empty coordinates"
+      p addr
+      # p "empty coordinates"
     end
+    sleep 0.25
 
   end
 
