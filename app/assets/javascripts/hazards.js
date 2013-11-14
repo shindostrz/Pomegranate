@@ -127,14 +127,13 @@ function initialize() {
 
     //grabs lat and long from marker for form
     google.maps.event.addListener(map,'click',function(e){
-      // if 
+      // if
       userMarker(e.latLng);
       console.log(marker);
       $('#marker_form').toggleClass('hidden');
       $('#hazard_latitude').val(e.latLng.ob);
       $('#hazard_longitude').val(e.latLng.pb);
     });
-
 
   var mcOptions = {gridSize: 50, maxZoom:15};
 
