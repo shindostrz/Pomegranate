@@ -1,10 +1,9 @@
 class AccidentsController < ApplicationController
   
   def index
-    @accidents = Accidents.all
+    @accidents = Accident.all
 
     respond_to do |format|
-      format.html
       format.json { render :json => @accidents }
     end
 
