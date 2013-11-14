@@ -86,6 +86,7 @@ function initialize() {
     //content info for hazards
     infowindow = new google.maps.InfoWindow();
 
+
     var markersArray = [];
     //marker dropped onto map for hazards
     var hazards, i;
@@ -104,6 +105,7 @@ function initialize() {
         };
       })(hazards, i));
     });
+
 
     //marker dropped onto map for accidents
     var deaths, x;
