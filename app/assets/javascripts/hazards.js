@@ -101,6 +101,7 @@ function initialize() {
     google.maps.event.addListener(map,'rightclick',function(e){
       userMarker(e.latLng);
       console.log(marker);
+      $('#marker_form').toggleClass('hidden');
       $('#hazard_latitude').val(e.latLng.ob);
       $('#hazard_longitude').val(e.latLng.pb);
     });
@@ -120,11 +121,10 @@ var mc = new MarkerClusterer(map,markersArray, mcOptions)
 
 console.log(mc)
 //
-    //end of ajax done function
-
-    //append toogle button to the top right of map
+  //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
 
+  //end of ajax done function
   });
 }
 
@@ -137,7 +137,6 @@ function userMarker(location) {
   });
   map.setCenter(location);
   $('#hazard_button').on('click', function(e) {
-    event.preventDefault();
     google.maps.event.addListener(marker, 'mouseover', (function(marker) {
       return function() {
         infowindows.setContent($('#hazard_hazard_type').val());
@@ -150,15 +149,3 @@ function userMarker(location) {
 function clearMarker() {
   marker.setMap(null);
 }
-
-//Disclosure widget for form
-$(document).ready(function() {
-  $('#form_disclosure').on('click', function(event) {
-    event.preventDefault();
-    if ($('#marker_form').hasClass('hidden')) {
-      $('#marker_form').removeClass('hidden');
-    } else {
-      $('#marker_form').addClass('hidden');
-    }
-  });
-});
