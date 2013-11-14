@@ -1,9 +1,7 @@
 class HazardsController < ApplicationController
 
   def index
-    # @hazards = Hazard.all
     @hazard = Hazard.new
-    # @hazards_formatted = @hazard.format_pin
     @hazards = Hazard.all
 
     respond_to do |format|

@@ -101,6 +101,7 @@ function initialize() {
     google.maps.event.addListener(map,'rightclick',function(e){
       userMarker(e.latLng);
       console.log(marker);
+      $('#marker_form').toggleClass('hidden');
       $('#hazard_latitude').val(e.latLng.ob);
       $('#hazard_longitude').val(e.latLng.pb);
     });
@@ -120,11 +121,10 @@ var mc = new MarkerClusterer(map,markersArray, mcOptions)
 
 console.log(mc)
 //
-    //end of ajax done function
-
-    //append toogle button to the top right of map
+  //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
 
+  //end of ajax done function
   });
 }
 
