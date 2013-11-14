@@ -14,21 +14,24 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4gdjZyAKfFw91Yc3hfhTesuSPVRj9y9U&sensor=true">
     </script>
 </head>
-<body>
+  <body>
 
 
 
-  <nav id="user-nav">
-    <% if current_user %>
-    Welcome <strong><%= current_user.name %>!</strong>
-    <%= link_to "Sign Out", signout_path, id: "sign_out" %>
-    <% else %>
-    <%= link_to image_tag('twitter_sign.png'), "/auth/twitter", id: "twitter_sign" %>
-    <%= link_to image_tag('fb_sign.png'), "/auth/facebook", id: "facebook_sign" %>
-    <% end %>
-  </nav>
+    <nav id="user-nav">
+      <% if current_user %>
+      Welcome <strong><%= current_user.name %>!</strong>
+      <%= link_to "Sign Out", signout_path, id: "sign_out" %>
+      <% else %>
+      <%= link_to image_tag('twitter_sign.png'), "/auth/twitter", id: "twitter_sign" %>
+      <%= link_to image_tag('fb_sign.png'), "/auth/facebook", id: "facebook_sign" %>
+      <% end %>
+    </nav>
 
-  <%= yield %>
+    <div id="blurb">
+      <%= render 'hazards/blurb' %>
+    </div>
+    <%= yield %>
 
-</body>
+  </body>
 </html>
