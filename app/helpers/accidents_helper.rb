@@ -1,0 +1,2 @@
+module AccidentsHelper
+end
