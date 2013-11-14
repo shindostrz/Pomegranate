@@ -6,6 +6,7 @@ gem 'pg'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'figaro'
+gem 'geocoder'
 
 group :development, :test do
   gem 'rspec-rails'
