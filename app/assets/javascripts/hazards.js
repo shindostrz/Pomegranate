@@ -89,7 +89,7 @@ function initialize() {
         position: new google.maps.LatLng(hazard['latitude'], hazard['longitude']),
         animation: google.maps.Animation.DROP,map:map
       });
-      google.maps.event.addListener(deaths, 'mouseover', (function(deaths, i) {
+      google.maps.event.addListener(deaths, 'click', (function(deaths, i) {
         return function() {
           infowindow.setContent(infoWindowTemplate(hazard));
           infowindow.open(map, deaths);
@@ -118,7 +118,6 @@ for (i = 0; i < hazardData.length; i++) {
 }
 var mcOptions = {gridSize: 50, maxZoom:15};
 var mc = new MarkerClusterer(map,markersArray, mcOptions)
-
 console.log(mc)
 //
   //append toogle button to the top right of map
@@ -130,21 +129,38 @@ console.log(mc)
 
 //user places new marker on map
 function userMarker(location) {
+  var hasMarker = false;
+  if(google.maps.Marker === null ) {
+    console.log("in if")
+  }
+  else {
+    hasMarker = true;
+    console.log("in else");
+  }
+  //console.log(google.maps.Marker);
+
+  if( hasMarker === false ) {
   marker = new google.maps.Marker({
-    position: new google.maps.LatLng(location.ob, location.pb),
-    map: map,
-    animation: google.maps.Animation.DROP,
-  });
-  map.setCenter(location);
-  $('#hazard_button').on('click', function(e) {
-    google.maps.event.addListener(marker, 'mouseover', (function(marker) {
-      return function() {
-        infowindows.setContent($('#hazard_hazard_type').val());
-        infowindows.open(map, marker);
-      };
-    })(marker));
-  });
+      draggable: true,
+      position: new google.maps.LatLng(location.ob, location.pb),
+      map: map,
+      animation: google.maps.Animation.DROP
+    });
+
+   map.setCenter(location);
+    $('#hazard_button').on('click', function(e) {
+      google.maps.event.addListener(marker, 'click', (function(marker) {
+        return function() {
+          infowindows.setContent($('#hazard_hazard_type').val());
+          infowindows.open(map, marker);
+        };
+      })(marker));
+    });
 }
+
+}
+
+
 
 function clearMarker() {
   marker.setMap(null);
