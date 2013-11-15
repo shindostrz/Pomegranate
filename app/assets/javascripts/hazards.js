@@ -185,7 +185,6 @@ function userMarker(location) {
   map.setCenter(location);
   google.maps.event.addListener(marker, 'dragend', (function(marker) {
     return function() {
-      console.log(marker.getPosition());
       setForm(marker.getPosition().ob, marker.getPosition().pb);
     };
   })(marker));
@@ -197,9 +196,7 @@ function userMarker(location) {
         newPinInfoWindow.open(map, marker);
       };
     })(marker));
-    // $('#hazard_latitude').val('');
-    // $('#hazard_longitude').val('');
-    // $('#hazard_description').val('');
+
   });
 }
 
@@ -212,4 +209,11 @@ var setForm = function(lat, lng) {
   $('#hazard_longitude').val(lng);
   $('#accident_latitude').val(lat);
   $('#accident_longitude').val(lng);
+};
+
+var clearForm = function() {
+  $('#hazard_latitude').val('');
+  $('#hazard_longitude').val('');
+  $('#accident_latitude').val('');
+  $('#accident_longitude').val('');
 };
