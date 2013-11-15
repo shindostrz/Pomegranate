@@ -23,9 +23,9 @@ class HazardsController < ApplicationController
     @new_hazard = @user.hazards.create(params[:hazard])
     @marker = "#{@new_hazard['latitude']}, #{@new_hazard['longitude']}"
 
-    # if @new_hazard.errors
-    #   flash[:error] = "Danger Will Robinson!"
-    # end
+    if @new_hazard.errors
+      flash[:error] = "Danger Will Robinson!"
+    end
 
     respond_to do |format|
       format.js

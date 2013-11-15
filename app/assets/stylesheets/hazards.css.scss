@@ -2,10 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-html, body, #map-canvas {
-  height: 100%;
+html, body {
   margin: 0px;
   padding: 0px
+}
+
+#map-canvas {
+  height: 500px;
 }
 
 #user-nav {
