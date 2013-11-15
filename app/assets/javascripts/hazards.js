@@ -85,7 +85,7 @@ function initialize() {
 
     //content info for hazards
     infowindow = new google.maps.InfoWindow();
-
+    newPinInfoWindow = new google.maps.InfoWindow();
 
     var markersArray = [];
     //marker dropped onto map for hazards
@@ -111,7 +111,7 @@ function initialize() {
     var deaths, x;
     _.each(ACCIDENT_DATA, function(accident) {
       deaths = new google.maps.Marker({
-        // icon: '',
+        icon: '/assets/red-dot.png',
         position: new google.maps.LatLng(accident['latitude'], accident['longitude']),
         animation: google.maps.Animation.DROP,
         map: map
@@ -127,12 +127,9 @@ function initialize() {
 
     //grabs lat and long from marker for form
     google.maps.event.addListener(map,'click',function(e){
-      // if
       userMarker(e.latLng);
       console.log(marker);
-      $('#marker_form').toggleClass('hidden');
-      $('#hazard_latitude').val(e.latLng.ob);
-      $('#hazard_longitude').val(e.latLng.pb);
+      $('#sidebar').toggleClass('hidden');
     });
 
     // var clusterStyles = [
@@ -173,6 +170,7 @@ function initialize() {
 //end of initalize function
 }
 
+//adds a new user generated marker
 function userMarker(location) {
   if (marker) {
     clearMarker(marker);
@@ -183,22 +181,35 @@ function userMarker(location) {
     draggable: true,
     animation: google.maps.Animation.DROP
   });
+  setForm(marker.getPosition().ob, marker.getPosition().pb);
   map.setCenter(location);
   google.maps.event.addListener(marker, 'dragend', (function(marker) {
     return function() {
       console.log(marker.getPosition());
+      setForm(marker.getPosition().ob, marker.getPosition().pb);
     };
   })(marker));
-  $('#hazard_button').on('click', function(e) {
-    google.maps.event.addListener(marker, 'mouseover', (function(marker) {
+  $('#hazard_button').on('click', function(event) {
+    marker.setDraggable(false);
+    google.maps.event.addListener(marker, 'click', (function(marker) {
       return function() {
-        infowindows.setContent($('#hazard_hazard_type').val());
-        infowindows.open(map, marker);
+        newPinInfoWindow.setContent($('#hazard_hazard_type').val());
+        newPinInfoWindow.open(map, marker);
       };
     })(marker));
+    // $('#hazard_latitude').val('');
+    // $('#hazard_longitude').val('');
+    // $('#hazard_description').val('');
   });
 }
 
 function clearMarker(marker) {
   marker.setMap(null);
 }
+
+var setForm = function(lat, lng) {
+  $('#hazard_latitude').val(lat);
+  $('#hazard_longitude').val(lng);
+  $('#accident_latitude').val(lat);
+  $('#accident_longitude').val(lng);
+};

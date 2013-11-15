@@ -1,10 +1,10 @@
-<div id="sidebar">
+<div id="sidebar" class="hidden">
   <% if current_user %>
     <div class="form_disclosure">
       <img src="assets/arrow-33-xxl.png" id="arrow"><h2>Add Hazard</h2>
     </div>
 
-    <div id="hazard-form" class="hidden">
+    <div id="hazard-form">
       <%= render 'hazard_form', :hazard => @hazard %>
     </div>
 
