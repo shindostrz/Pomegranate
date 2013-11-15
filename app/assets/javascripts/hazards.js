@@ -196,7 +196,15 @@ function userMarker(location) {
         newPinInfoWindow.open(map, marker);
       };
     })(marker));
-
+  });
+  $('#accident_button').on('click', function(event) {
+    marker.setDraggable(false);
+    google.maps.event.addListener(marker, 'click', (function(marker) {
+      return function() {
+        newPinInfoWindow.setContent($('#accident_details').val());
+        newPinInfoWindow.open(map, marker);
+      };
+    })(marker));
   });
 }
 
