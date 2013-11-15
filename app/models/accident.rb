@@ -1,5 +1,5 @@
 class Accident < ActiveRecord::Base
-  attr_accessible :latitude, :longitude, :details, :news_url, :user_id
+  attr_accessible :latitude, :longitude, :details, :news_url, :user_id, :accident_date
 
   validates :latitude, presence: true
   validates :longitude, presence: true

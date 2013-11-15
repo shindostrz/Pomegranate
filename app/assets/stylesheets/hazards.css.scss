@@ -16,15 +16,32 @@ html, body, #map-canvas {
   display: none;
 }
 
-#arrow {
+.arrow {
   width: 20px;
   float: left;
+  padding-right: 4px;
+  margin-left: -2px;
+  margin-top: 3px;
+}
+
+.arrow-toggle {
+  transform:rotate(45deg);
+  -webkit-transform:rotate(90deg);
 }
 
 #sidebar {
   float: left;
   width: 20%;
   padding: 0.5em;
+}
+
+.form_disclosure {
+  cursor: pointer;
+}
+
+#close-sidebar {
+  cursor: pointer;
+  text-align: right;
 }
 
 .gmap-control-container {
