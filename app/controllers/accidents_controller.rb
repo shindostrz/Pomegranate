@@ -13,7 +13,6 @@ class AccidentsController < ApplicationController
 
     @user = current_user
     @new_accident = @user.accidents.create(params[:accident])
-    @marker = "#{@new_accident['latitude']}, #{@new_accident['longitude']}"
 
     respond_to do |format|
       format.js
