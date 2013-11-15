@@ -127,6 +127,7 @@ function initialize() {
 
     //grabs lat and long from marker for form
     google.maps.event.addListener(map,'click',function(e){
+      // if 
       userMarker(e.latLng);
       console.log(marker);
       $('#marker_form').toggleClass('hidden');
@@ -135,53 +136,46 @@ function initialize() {
     });
 
 
-var mcOptions = {gridSize: 50, maxZoom:15};
+  var mcOptions = {gridSize: 50, maxZoom:15};
 
-var mc = new MarkerClusterer(map,markersArray, mcOptions);
+  var mc = new MarkerClusterer(map,markersArray, mcOptions);
 
-console.log(mc);
-//
+  console.log(mc);
+
   //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
 
   //end of ajax done function
   });
+//end of initalize function
 }
 
-//user places new marker on map
 function userMarker(location) {
-  var hasMarker = false;
-  if(google.maps.Marker === null ) {
-    console.log("in if");
+  if (marker) {
+    clearMarker(marker);
   }
-  else {
-    hasMarker = true;
-    console.log("in else");
-  }
-  //console.log(google.maps.Marker);
-
-  if( hasMarker === false ) {
   marker = new google.maps.Marker({
-      draggable: true,
-      position: new google.maps.LatLng(location.ob, location.pb),
-      map: map,
-      animation: google.maps.Animation.DROP
-    });
-
-   map.setCenter(location);
-    $('#hazard_button').on('click', function(e) {
-      google.maps.event.addListener(marker, 'click', (function(marker) {
-        return function() {
-          infowindows.setContent($('#hazard_hazard_type').val());
-          infowindows.open(map, marker);
-        };
-      })(marker));
-    });
-  }
-
+    position: new google.maps.LatLng(location.ob, location.pb),
+    map: map,
+    draggable: true,
+    animation: google.maps.Animation.DROP
+  });
+  map.setCenter(location);
+  google.maps.event.addListener(marker, 'dragend', (function(marker) {
+    return function() {
+      console.log(marker.getPosition());
+    };
+  })(marker));
+  $('#hazard_button').on('click', function(e) {
+    google.maps.event.addListener(marker, 'mouseover', (function(marker) {
+      return function() {
+        infowindows.setContent($('#hazard_hazard_type').val());
+        infowindows.open(map, marker);
+      };
+    })(marker));
+  });
 }
 
-
-function clearMarker() {
+function clearMarker(marker) {
   marker.setMap(null);
 }
