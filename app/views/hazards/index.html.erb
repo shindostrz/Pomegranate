@@ -1,4 +1,4 @@
- <%# unless current_user %> 
+ <%# unless current_user %>
   <div id="blurb">
     <p>
       Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows. Some pilots get picked and become television programs. Some don't, become nothing. She starred in one of the ones that became nothing.
@@ -6,7 +6,7 @@
   </div>
 <%# end %>
 
-<div id="sidebar" class="hidden">
+<div id="sidebar" >
   <div id="close-sidebar">X</div>
   <% if current_user %>
     <div class="form_disclosure">
@@ -25,6 +25,15 @@
       <%= render 'accidents/accident_form', :accident => @accident %>
     </div>
   <% end %>
+      <div id="directions-form">
+      <form>
+        <p>ENTER A ROUTE</p>
+        <input id="origin" type="text" placeholder="Origin"><br>
+        <input id="destination" type="text" placeholder="Destination"><br>
+        <input type="button" value="Get Route" onclick="calcRoute()">
+      </form>
+    </div>
+    <div id="directionsPanel" style="height:100%;width:100%"></div>
 
 </div>
 

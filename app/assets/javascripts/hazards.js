@@ -23,8 +23,13 @@ var marker;
   });
  };
 
-
+// For draggable direction
+var map;
+var directionsService, directionsDisplay;
 function initialize() {
+
+  directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+  directionsService = new google.maps.DirectionsService();
 
   //toogle button for bicycle routes legend
   var controlDiv = document.createElement('DIV');
@@ -72,6 +77,8 @@ function initialize() {
   map = new google.maps.Map(
       document.getElementById('map-canvas'),
       mapOptions);
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
   //bikelayer
   var bikeLayer = new google.maps.BicyclingLayer();
@@ -162,6 +169,21 @@ function initialize() {
 //end of initalize function
 }
 
+function calcRoute() {
+
+  var request = {
+    origin: document.getElementById("origin").value,
+    destination: document.getElementById("destination").value,
+    travelMode: google.maps.TravelMode.BICYCLING,
+    unitSystem: google.maps.UnitSystem.IMPERIAL
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    }
+  });
+}
+
 //function that sets the values for new user generated marker
 function userMarker(location) {
   if (marker) {
@@ -223,3 +245,6 @@ $(document).ready(function() {
   getHazardData();
   getAccidentData();
 });
+var rendererOptions = {
+  draggable: true
+};
