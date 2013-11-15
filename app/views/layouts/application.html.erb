@@ -21,6 +21,7 @@
 
 
     <nav id="user-nav">
+      <%= image_tag("logo2.png", :alt => "logo") %>
       <% if current_user %>
       Welcome <strong><%= current_user.name %>!</strong>
       <%= link_to "Sign Out", signout_path, id: "sign_out" %>
@@ -33,6 +34,7 @@
     <div id="blurb">
       <%= render 'hazards/blurb' %>
     </div>
+
     <%= yield %>
 
   </body>

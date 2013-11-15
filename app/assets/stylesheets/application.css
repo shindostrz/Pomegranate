@@ -13,24 +13,35 @@
  */
 body {
   background-color: pink;
+
 }
 
 #user-nav {
-  background-color: red;
-
+  background-color: pink;
+  padding: 6px;
+  width: 94.5%;
+  float:right;
 }
+
+
+
+#facebook_sign, #twitter_sign {
+  float: right;
+}
+
+
 
 #blurb {
-  background-color: orange;
+  background-color: pink;
   width: 90%;
   margin: 0 auto;
-  padding: .00345em;
-  text-align: center;
+  padding: 1px ;
 }
+
 p {
   font-family: "brandon-grotesque";
-  background-color: blue;
 }
+
 #sidebar {
   background-color: yellow;
 }
