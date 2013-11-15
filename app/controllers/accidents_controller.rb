@@ -14,6 +14,8 @@ class AccidentsController < ApplicationController
     @user = current_user
     @new_accident = @user.accidents.create(params[:accident])
 
+    flash[:notice] = "Thanks for adding information!"
+
     respond_to do |format|
       format.js
     end
