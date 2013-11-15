@@ -21,9 +21,9 @@
 
 
     <nav id="user-nav">
-      <%= image_tag("logo2.png", :alt => "logo") %>
+      <h1> Servo </h1>
       <% if current_user %>
-      Welcome <strong><%= current_user.name %>!</strong>
+      <p>Welcome <strong><%= current_user.name %>!</strong></p>
       <%= link_to "Sign Out", signout_path, id: "sign_out" %>
       <% else %>
       <%= link_to image_tag('twitter_sign.png'), "/auth/twitter", id: "twitter_sign" %>

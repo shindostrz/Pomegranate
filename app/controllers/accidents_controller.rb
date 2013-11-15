@@ -1,5 +1,5 @@
 class AccidentsController < ApplicationController
-  
+
   def index
     @accidents = Accident.all
 
