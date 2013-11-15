@@ -1,4 +1,4 @@
-var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= created_at %></small><p><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow" onclick="initialize()">Delete</a></p>');
+var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= created_at %></small><p><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">Delete</a></p>');
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
 var marker;
@@ -10,6 +10,7 @@ var marker;
       type: 'GET'
     }).done(function(data) {
       ACCIDENT_DATA = data;
+      INITIALIZE();
     });
  };
 
@@ -20,11 +21,11 @@ var marker;
     type: 'GET'
   }).done(function(data) {
     HAZARD_DATA = data;
+    INITIALIZE();
   });
  };
 
-
-function initialize() {
+function INITIALIZE() {
 
   //toogle button for bicycle routes legend
   var controlDiv = document.createElement('DIV');
@@ -63,7 +64,7 @@ function initialize() {
 
   //zoomed in san francisco centering on the latlng above
   var mapOptions = {
-    zoom: 14,
+    zoom: 13,
     center: sfLatlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
@@ -180,25 +181,25 @@ function userMarker(location) {
       setForm(marker.getPosition().ob, marker.getPosition().pb);
     };
   })(marker));
-  $('#hazard_button').on('click', function(event) {
-    marker.setDraggable(false);
-    var savedMarker = marker;
-    google.maps.event.addListener(savedMarker, 'click', (function(marker) {
-      return function() {
-        newPinInfoWindow.setContent($('#hazard_hazard_type').val());
-        newPinInfoWindow.open(map, marker);
-      };
-    })(savedMarker));
+  // $('#hazard_button').on('click', function(event) {
+  //   marker.setDraggable(false);
+  //   var savedMarker = marker;
+  //   google.maps.event.addListener(savedMarker, 'click', (function(marker) {
+  //     return function() {
+  //       newPinInfoWindow.setContent($('#hazard_hazard_type').val());
+  //       newPinInfoWindow.open(map, marker);
+  //     };
+  //   })(savedMarker));
   });
-  $('#accident_button').on('click', function(event) {
-    marker.setDraggable(false);
-    google.maps.event.addListener(marker, 'click', (function(marker) {
-      return function() {
-        newPinInfoWindow.setContent($('#accident_details').val());
-        newPinInfoWindow.open(map, marker);
-      };
-    })(marker));
-  });
+  // $('#accident_button').on('click', function(event) {
+  //   marker.setDraggable(false);
+  //   google.maps.event.addListener(marker, 'click', (function(marker) {
+  //     return function() {
+  //       newPinInfoWindow.setContent($('#accident_details').val());
+  //       newPinInfoWindow.open(map, marker);
+  //     };
+  //   })(marker));
+  // });
 }
 
 var clearMarker = function(marker) {
