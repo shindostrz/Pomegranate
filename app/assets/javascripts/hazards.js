@@ -21,10 +21,6 @@ function initialize() {
     //sample data from accidents
 
     var locationData = [
-      [37.769807, -122.4113, "Bicyclist struck, killed by Muni bus in SOMA"],
-      [37.7749295, -122.4194155, "Bicyclist sentenced for manslaughter in SF crash"],
-      [37.778524, -122.405634, "Bicyclist died in SoMa crash with truck"],
-      [37.765183, -122.41751, "Bicyclist fatally struck by vehicle in Inner Mission"],
       [37.778006, -122.391707, "Women cyclist killed in collision near ballpark"],
       [37.786543, -122.414801, "Bicyclist injured in collision with Muni Bus "],
       [37.7749295, -122.4194155, "Warrant for cyclist accused of killing pedestrian"],
