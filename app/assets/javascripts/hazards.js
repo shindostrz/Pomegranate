@@ -127,7 +127,7 @@ function initialize() {
 
     //grabs lat and long from marker for form
     google.maps.event.addListener(map,'click',function(e){
-      // if 
+      // if
       userMarker(e.latLng);
       console.log(marker);
       $('#marker_form').toggleClass('hidden');
@@ -135,8 +135,31 @@ function initialize() {
       $('#hazard_longitude').val(e.latLng.pb);
     });
 
+    // var clusterStyles = [
+    //   {
+    //     opt_textColor: 'white',
+    //     url: '/assets/MarkerGrey.png',
+    //     height: 43,
+    //     width: 27,
+    //     textSize: 1
+    //   },
+    // {
+    //     opt_textColor: 'white',
+    //     url: '/assets/MarkerGrey.png',
+    //     height: 43,
+    //     width: 27,
+    //     textSize: 1
+    //   },
+    // {
+    //     opt_textColor: 'white',
+    //     url: '/assets/MarkerGrey.png',
+    //     height: 43,
+    //     width: 27,
+    //     textSize: 1
+    //   }
+    // ];
 
-  var mcOptions = {gridSize: 50, maxZoom:15};
+  var mcOptions = {gridSize: 50, maxZoom:15}; //needs to add clusterstyle
 
   var mc = new MarkerClusterer(map,markersArray, mcOptions);
 
