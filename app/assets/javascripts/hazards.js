@@ -25,7 +25,7 @@ var marker;
   });
  };
 
-// For draggable direction
+
 var map;
 var directionsService, directionsDisplay;
 
