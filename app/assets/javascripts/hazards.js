@@ -136,17 +136,18 @@ function initialize() {
     });
 
 
-var mcOptions = {gridSize: 50, maxZoom:15};
+  var mcOptions = {gridSize: 50, maxZoom:15};
 
-var mc = new MarkerClusterer(map,markersArray, mcOptions);
+  var mc = new MarkerClusterer(map,markersArray, mcOptions);
 
-console.log(mc);
-//
+  console.log(mc);
+
   //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
 
   //end of ajax done function
   });
+//end of initalize function
 }
 
 function userMarker(location) {
