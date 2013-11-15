@@ -11,4 +11,66 @@
  *= require_self
  *= require_tree .
  */
+body {
+  background-color: #A6A600;
 
+}
+
+#user-nav {
+  background-color: #A6A600;
+  width: 100%;
+  float:right;
+}
+
+h1 {
+  font-family: "hotel-open";
+  letter-spacing: .75em;
+  padding-left: 2em;
+  font-size: 150%;
+  border: 1px solid white;
+  color: white;
+}
+
+#twitter_sign, #facebook_sign {
+  float: right;
+
+}
+
+#user-nav p {
+  float: right;
+  padding-right: 2em;
+}
+
+#sign_out {
+  clear: both;
+  float: right;
+  color: white;
+  padding-right: 2em;
+  text-decoration: none;
+}
+
+
+#blurb {
+  clear: both;
+  background-color: #BFBF30;
+  font-style: italic;
+  width: 90%;
+  margin: 0 auto;
+  padding: .50em;
+  border-radius: 15px;
+}
+
+p {
+  font-family: "brandon-grotesque";
+  color: white;
+}
+
+#sidebar {
+
+}
+
+h2 {
+  font-family: "brandon-grotesque";
+  color: white;
+  letter-spacing: .0345em;
+}
