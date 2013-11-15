@@ -129,7 +129,7 @@ function initialize() {
     google.maps.event.addListener(map,'click',function(e){
       userMarker(e.latLng);
       console.log(marker);
-      $('#sidebar').toggleClass('hidden');
+      $('#sidebar').removeClass('hidden');
     });
 
     // var clusterStyles = [

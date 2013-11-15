@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :provider, :uid
 
   has_many :hazards
+  has_many :accidents
 
   validates :name, presence: true
   validates :provider, presence: true
