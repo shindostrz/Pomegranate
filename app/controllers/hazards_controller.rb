@@ -3,7 +3,7 @@ class HazardsController < ApplicationController
   def index
     @hazard = Hazard.new
     @hazards = Hazard.all
-
+    @vote = Vote.new
     @accident = Accident.new
 
     respond_to do |format|

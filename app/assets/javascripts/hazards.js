@@ -1,6 +1,12 @@
-var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= created_at %></small><p><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">Delete</a></p>');
+var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
+  + '<%= hazard_type %></strong><br><%= description %></p><small>Added: '
+  + '<%= created_at %></small><p><button class="upvote" data-id="<%= id %>">Up</button>'
+  + '<button class="downvote" data-id="<%= id %>">Down</button>'
+  + '<a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
+  + 'Delete</a></p>');
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
+
 var marker;
 
 //call to controller for accident database info
@@ -16,6 +22,8 @@ var marker;
 
 //call to controller for hazard database info
  var getHazardData = function() {
+
+  //call to controller for hazard database info
   $.ajax({
     url: '/hazards.json',
     type: 'GET'
@@ -110,7 +118,6 @@ function INITIALIZE() {
     })(hazards, i));
   });
 
-
   //marker dropped onto map for accidents
   var deaths, x;
   _.each(ACCIDENT_DATA, function(accident) {
@@ -119,7 +126,7 @@ function INITIALIZE() {
       position: new google.maps.LatLng(accident['latitude'], accident['longitude']),
       animation: google.maps.Animation.DROP,
       map: map
-    });
+  });
     markersArray.push(deaths);
     google.maps.event.addListener(deaths, 'click', (function(deaths, x) {
       return function() {
@@ -164,7 +171,7 @@ function INITIALIZE() {
 
   var mc = new MarkerClusterer(map,markersArray, mcOptions);
 
-  console.log(mc);
+  //console.log(mc);
 
   //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
@@ -244,10 +251,41 @@ var clearForm = function() {
   $('#accident_longitude').val('');
 };
 
+
 $(document).ready(function() {
   getHazardData();
   getAccidentData();
+
+  $('div').on("click", ".upvote", function(event){
+  var $hazardId = $(this).attr("data-id");
+  var $voteUrl = '/hazards/'+ $hazardId +'/votes';
+  console.log($voteUrl);
+    $.ajax({
+    url: $voteUrl,
+    type: 'post',
+    data: {
+      "vote": true
+    }
+  }).done(function(response){
+    console.log(response);
+  });
+
 });
+
+  $('div').on("click", ".downvote", function(event) {
+    var $hazardId = $(this).attr("data-id");
+      $.ajax({
+      url: '/hazards/'+ $hazardId +'/votes',
+      type: 'post',
+      data: {
+        "vote": false
+      }
+    }).done(function(response){
+      console.log(response);
+    });
+  });
+});
+
 var rendererOptions = {
   draggable: true
 };

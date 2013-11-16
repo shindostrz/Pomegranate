@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131115032210) do
+ActiveRecord::Schema.define(:version => 20131115215448) do
 
   create_table "accidents", :force => true do |t|
     t.string   "latitude"
@@ -39,6 +39,14 @@ ActiveRecord::Schema.define(:version => 20131115032210) do
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "votes", :force => true do |t|
+    t.boolean  "voted"
+    t.integer  "user_id"
+    t.integer  "hazard_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
