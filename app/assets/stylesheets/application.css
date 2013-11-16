@@ -34,6 +34,11 @@ header {
   top: 0;
 }
 
+#header-content {
+  margin: 0 auto;
+  width: 90%;
+}
+
 h1 {
   font-family: "Foco";
   color: #5CCDC9;
@@ -49,10 +54,10 @@ h1 {
 
 #signed_in {
   float: right;
-/*  display: inline-block;
-*/  margin-right: 1em;
-  padding-left: 1em;
+/*  margin-right: 1em;
+  padding-left: 1em;*/
   border-left: 1px solid #006561;
+  text-align: right;
 }
 
 #signed_in p {
