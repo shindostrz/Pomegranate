@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require underscore
+//= require markerclusterer
+//= require hazards
+//= require sessions
 
 //Disclosure widget for form
 $(document).ready(function() {
