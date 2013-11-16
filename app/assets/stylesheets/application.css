@@ -12,46 +12,64 @@
  *= require_tree .
  */
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body { background-color: #5CCDC9}
 
-#header {
-  position: relative;
-  top: 0;
+#map-canvas {
+  height: 100%;
+/*  position: relative;*/
+/*  top: 19.5%;*/
+  margin: 0;
+  padding: 0;
+}
+
+header {
   width: 100%;
-  height: 100px;
   background-color: #006561;
-  }
+  top: 0;
+}
+
+#header-content {
+  margin: 0 auto;
+  width: 90%;
+}
 
 h1 {
   font-family: "Foco";
-  text-align: center;
   color: #5CCDC9;
+  width: 100px;
+  float: left;
 }
 
 #user_nav {
-  background-color: #5CCDC9;
-  width: 100%;
-  float:top;
-  height: 74px;
-
+/*  background-color: #5CCDC9;
+*/margin-bottom: 1.5em;
+  height: 80px;
 }
 
 #signed_in {
   float: right;
-  display: inline-block;
-  margin-right: 1em;
-  padding-left: 1em;
+/*  margin-right: 1em;
+  padding-left: 1em;*/
   border-left: 1px solid #006561;
+  text-align: right;
 }
 
 #signed_in p {
-  color: #006561;
+/*  color: #006561;*/
+  color: #FFF;
   font-family: "museo-sans-rounded";
 }
 
 a {
   text-decoration: none;
-  color: #006561;
+/*  color: #006561;*/
+  color: #FFF;
   font-family: "museo-sans-rounded";
   font-weight: lighter;
   letter-spacing: .0745em;
@@ -71,31 +89,29 @@ ul {
   float: right;
   height: 100%;
   width: 33%;
-
-
 }
 
 li {
-  display: inline;
   float: left;
   text-align: center;
   width: 48%;
   height: 100%;
-  border-right: 1px solid #006561;
-  border-left: 1px solid #006561;
+  border-right: 1px solid #FFF;
+  border-left: 1px solid #FFF;
+  list-style: none;
 }
 
-
 #blurb {
-  position: relative;
-  top: 13%;
+/*  position: relative;
+*/  top: 13%;
   background-color: #5CCDC9;
-  font-style: italic;
+/*  font-style: italic;*/
   width: 90%;
   margin: 0 auto;
   padding: .50em;
   border-radius: 15px;
   border: 1px solid #006561;
+  margin-bottom: 1.5em;
 }
 
 #blurb p {
@@ -104,9 +120,11 @@ li {
 }
 
 #sidebar {
-  position: relative;
+  float: left;
+  width: 20%;
+  padding: 0.5em;
+/*  position: relative;*/
   top: 19.5%;
-
 }
 
 h2 {
@@ -115,10 +133,3 @@ h2 {
   letter-spacing: .0345em;
   font-weight: lighter;
 }
-
-#map-canvas {
-  position: relative;
-  top: 19.5%;
-}
-
-
