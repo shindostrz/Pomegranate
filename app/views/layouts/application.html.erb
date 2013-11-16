@@ -18,9 +18,9 @@
 </head>
   <body>
 
-<div id="header">
-  <h1> BikeWay </h1>
-<nav id="user_nav">
+<header>
+  <h1>BikeWay</h1>
+  <nav id="user_nav">
 
     <% if current_user %>
       <div id="signed_in">
@@ -33,8 +33,8 @@
         <a href="/auth/facebook" name="fb_window" ><li><h3>Sign in with<br>facebook!</h3></li></a>
       </ul>
     <% end %>
-</nav>
-</div>
+  </nav>
+</header>
 
     <% flash.each do |name, msg| %>
       <%= content_tag(:div, msg) %>
