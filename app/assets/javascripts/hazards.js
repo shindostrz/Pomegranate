@@ -214,7 +214,7 @@ function userMarker(location) {
   //       newPinInfoWindow.open(map, marker);
   //     };
   //   })(savedMarker));
-  });
+  // });
   // $('#accident_button').on('click', function(event) {
   //   marker.setDraggable(false);
   //   google.maps.event.addListener(marker, 'click', (function(marker) {
