@@ -1,6 +1,7 @@
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<%= hazard_type %></strong><br><%= description %></p><small>Added: '
   + '<%= created_at %></small><p><button type="submit" class="upvote" name="true" data-id="<%= id %>">Up</button>'
+  + '<button type="submit" class=.downvote name="false">Down</button>'
   + '<a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
   + 'Delete</a></p>');
 ACCIDENT_DATA = [];

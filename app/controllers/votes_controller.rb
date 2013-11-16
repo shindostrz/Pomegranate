@@ -1,8 +1,13 @@
 class VotesController < ApplicationController
 
     def create
-    @vote = Vote.create(params[:vote])
-    redirect_to hazards_path
+      @user = current_user
+      @hazard = params[:id]
+      @vote = @hazard.votes.create(voted: params[:vote], user_id: @user)
+      response_to do |format|
+        format.js
+      end
+
     end
 
 end
