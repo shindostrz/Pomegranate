@@ -1,7 +1,7 @@
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<%= hazard_type %></strong><br><%= description %></p><small>Added: '
-  + '<%= created_at %></small><p><button type="submit" class="upvote" name="true" data-id="<%= id %>">Up</button>'
-  + '<button type="submit" class=.downvote name="false">Down</button>'
+  + '<%= created_at %></small><p><button class="upvote" data-id="<%= id %>">Up</button>'
+  + '<button class="downvote" data-id="<%= id %>">Down</button>'
   + '<a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
   + 'Delete</a></p>');
 ACCIDENT_DATA = [];
@@ -251,40 +251,41 @@ var clearForm = function() {
   $('#accident_longitude').val('');
 };
 
-$('.upvote').on("click", function(event){
-  var $hazardId = $(this).find('.upvote').attr("data-id");
-  var $userVote = $(this).find('.upvote').val();
-    $.ajax({
-    url: '/hazards/'+$hazardId+'/votes',
-    type: 'post',
-    data: {
-      "vote": $userVote
-    }
-  }).done(function(response){
-
-  });
-
-});
-
-$('.upvote').on("click", function(event){
-  var $hazardId = $(this).find('.upvote').attr("data-id");
-  var $userVote = $(this).find('.upvote').val();
-    $.ajax({
-    url: '/hazards/'+$hazardId+'/votes',
-    type: 'post',
-    data: {
-      "vote": $userVote
-    }
-  }).done(function(response){
-
-  });
-});
-
 
 $(document).ready(function() {
   getHazardData();
   getAccidentData();
+
+  $('div').on("click", ".upvote", function(event){
+  var $hazardId = $(this).attr("data-id");
+  var $voteUrl = '/hazards/'+ $hazardId +'/votes';
+  console.log($voteUrl);
+    $.ajax({
+    url: $voteUrl,
+    type: 'post',
+    data: {
+      "vote": true
+    }
+  }).done(function(response){
+    console.log(response);
+  });
+
 });
+
+  $('div').on("click", ".downvote", function(event) {
+    var $hazardId = $(this).attr("data-id");
+      $.ajax({
+      url: '/hazards/'+ $hazardId +'/votes',
+      type: 'post',
+      data: {
+        "vote": false
+      }
+    }).done(function(response){
+      console.log(response);
+    });
+  });
+});
+
 var rendererOptions = {
   draggable: true
 };

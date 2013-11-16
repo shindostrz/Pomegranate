@@ -2,12 +2,11 @@ class VotesController < ApplicationController
 
     def create
       @user = current_user
-      @hazard = params[:id]
-      @vote = @hazard.votes.create(voted: params[:vote], user_id: @user)
-      response_to do |format|
-        format.js
-      end
-
+      @hazard = Hazard.find(params[:hazard_id])
+      @vote = @user.votes.create(voted: params[:vote])
+      @hazard.votes << @vote
+      @vote = Vote.last
+      render :json => @vote
     end
 
 end
