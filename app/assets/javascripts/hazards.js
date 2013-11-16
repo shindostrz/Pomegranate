@@ -1,13 +1,10 @@
-var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= created_at %></small><p><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">Delete</a></p>');
+var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
+  + '<%= hazard_type %></strong><br><%= description %></p><small>Added: '
+  + '<%= created_at %></small><p><button type="submit" class="upvote" name="true" data-id="<%= id %>">Up</button>'
+  + '<a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
+  + 'Delete</a></p>');
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
-
- $.ajax({
-    url: '/accidents.json',
-    type: 'GET'
-  }).done(function(data) {
-    ACCIDENT_DATA = data;
-  });
 
 var marker;
 
@@ -128,14 +125,7 @@ function INITIALIZE() {
       position: new google.maps.LatLng(accident['latitude'], accident['longitude']),
       animation: google.maps.Animation.DROP,
       map: map
-
-    //grabs lat and long from marker for form
-    google.maps.event.addListener(map,'click',function(e){
-      userMarker(e.latLng);
-      //console.log(marker);
-      $('#sidebar').removeClass('hidden');
-
-    });
+  });
     markersArray.push(deaths);
     google.maps.event.addListener(deaths, 'click', (function(deaths, x) {
       return function() {
@@ -259,6 +249,36 @@ var clearForm = function() {
   $('#accident_latitude').val('');
   $('#accident_longitude').val('');
 };
+
+$('.upvote').on("click", function(event){
+  var $hazardId = $(this).find('.upvote').attr("data-id");
+  var $userVote = $(this).find('.upvote').val();
+    $.ajax({
+    url: '/hazards/'+$hazardId+'/votes',
+    type: 'post',
+    data: {
+      "vote": $userVote
+    }
+  }).done(function(response){
+
+  });
+
+});
+
+$('.upvote').on("click", function(event){
+  var $hazardId = $(this).find('.upvote').attr("data-id");
+  var $userVote = $(this).find('.upvote').val();
+    $.ajax({
+    url: '/hazards/'+$hazardId+'/votes',
+    type: 'post',
+    data: {
+      "vote": $userVote
+    }
+  }).done(function(response){
+
+  });
+});
+
 
 $(document).ready(function() {
   getHazardData();

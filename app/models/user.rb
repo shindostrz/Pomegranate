@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   has_many :hazards
   has_many :accidents
+  has_many :votes
 
   validates :name, presence: true
   validates :provider, presence: true
