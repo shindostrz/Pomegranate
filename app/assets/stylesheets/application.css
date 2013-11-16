@@ -104,6 +104,8 @@ li {
 #blurb {
 /*  position: relative;
 */  top: 13%;
+  position: relative;
+  top: 29%;
   background-color: #5CCDC9;
 /*  font-style: italic;*/
   width: 90%;
