@@ -79,6 +79,7 @@ a:hover {
   text-decoration: none;
   color: #FFF;
   font-family: "museo-sans-rounded";
+  font-weight: bolder;
   font-style: italic;
   letter-spacing: .0745em;
 }
