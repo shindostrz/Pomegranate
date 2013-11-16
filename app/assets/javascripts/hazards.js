@@ -1,6 +1,14 @@
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong><%= hazard_type %></strong><br><%= description %></p><small>Added: <%= created_at %></small><p><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">Delete</a></p>');
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
+
+ $.ajax({
+    url: '/accidents.json',
+    type: 'GET'
+  }).done(function(data) {
+    ACCIDENT_DATA = data;
+  });
+
 var marker;
 
 //call to controller for accident database info
@@ -16,6 +24,8 @@ var marker;
 
 //call to controller for hazard database info
  var getHazardData = function() {
+
+  //call to controller for hazard database info
   $.ajax({
     url: '/hazards.json',
     type: 'GET'
@@ -110,7 +120,6 @@ function INITIALIZE() {
     })(hazards, i));
   });
 
-
   //marker dropped onto map for accidents
   var deaths, x;
   _.each(ACCIDENT_DATA, function(accident) {
@@ -119,6 +128,13 @@ function INITIALIZE() {
       position: new google.maps.LatLng(accident['latitude'], accident['longitude']),
       animation: google.maps.Animation.DROP,
       map: map
+
+    //grabs lat and long from marker for form
+    google.maps.event.addListener(map,'click',function(e){
+      userMarker(e.latLng);
+      //console.log(marker);
+      $('#sidebar').removeClass('hidden');
+
     });
     markersArray.push(deaths);
     google.maps.event.addListener(deaths, 'click', (function(deaths, x) {
@@ -164,7 +180,7 @@ function INITIALIZE() {
 
   var mc = new MarkerClusterer(map,markersArray, mcOptions);
 
-  console.log(mc);
+  //console.log(mc);
 
   //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);

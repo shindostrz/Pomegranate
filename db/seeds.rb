@@ -15,7 +15,7 @@ hazards_test = Hazard.create([
 ])
 
 User.create([
-  {provider: "twitter", uid: "113539049", name: "Amy MacKinnon"}, {provider:"facebook", uid:"723345712", name:"Amy MacKinnon"}
+  {provider: "twitter", uid: "113539049", name: "Amy MacKinnon"}, {provider:"facebook", uid:"723345712", name:"Amy MacKinnon"}, {provider:"facebbook", uid:"100006742991971",name:"Francisco Orozco"}
 ])
 
 Accident.create([

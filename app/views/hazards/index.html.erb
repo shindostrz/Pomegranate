@@ -23,6 +23,13 @@
       <img src="assets/arrow-33-xxl.png" class="arrow arrow-toggle"><h2>Add Hazard</h2>
     </div>
 
+    <h5>Vote on this Post:</h5>
+    <%= form_for @vote do |f| %>
+        <%= f.radio_button :voted, true %> <label> Up Vote</label>
+        <%= f.radio_button :voted, false %> <label> Down Vote</label>
+    <%= f.submit "Vote" %>
+    <% end %>
+
     <div id="hazard-form">
       <%= render 'hazard_form', :hazard => @hazard %>
     </div>
