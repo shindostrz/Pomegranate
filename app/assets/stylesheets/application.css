@@ -71,6 +71,7 @@ a {
   padding-left: 1em;*/
   border-left: 1px solid #006561;
   text-align: right;
+  padding-left: 5px;
 }
 
 #signed_in p {
@@ -116,6 +117,11 @@ header a:hover {
   list-style: none;
 }
 
+#user_nav li:hover {
+  background-color: #ECF0F1;
+
+}
+
 #blurb {
   top: 13%;
   position: relative;
@@ -158,6 +164,11 @@ h2 {
   border-radius: 3px;
   font-family: "brandon-grotesque";
   cursor: pointer;
+}
+
+#route_button:hover, #add-marker:hover, #done-marker:hover {
+  background-color: #006561;
+  color: #ECF0F1;
 }
 
 #hazard_hazard_type {
