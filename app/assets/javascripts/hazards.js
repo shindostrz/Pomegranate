@@ -272,7 +272,6 @@ $(document).ready(function() {
   });
 
   $('#add-marker').on("click", function(event) {
-    // event.stopPropagation();
     alert("Click on map to add your marker");
 
     //adds a marker to the map when user clicks
@@ -285,8 +284,7 @@ $(document).ready(function() {
 
   $('#done-marker').on("click", function(event) {
     console.log("working");
-    // event.stopPropagation();
-    $('#add-marker').unbind('click');
+    google.maps.event.clearListeners(map, 'click');
   });
 
 });
