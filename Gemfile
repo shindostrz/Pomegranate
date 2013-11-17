@@ -10,6 +10,7 @@ gem 'geocoder'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
+gem 'sidetiq'
 
 group :development, :test do
   gem 'rspec-rails'

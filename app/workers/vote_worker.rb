@@ -1,7 +1,10 @@
 class VoteWorker
   include Sidekiq::Worker
+  include Sidetiq::Schedulable
 
   sidekiq_options queue: :vote_tally
+
+  recurrence { hourly(12) }
 
   def perform
     Hazard.all.each do |hazard|
