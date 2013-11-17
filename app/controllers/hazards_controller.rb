@@ -5,6 +5,7 @@ class HazardsController < ApplicationController
     @hazards = Hazard.all
     @vote = Vote.new
     @accident = Accident.new
+    @hazard.hazard_update
 
     respond_to do |format|
       format.html
