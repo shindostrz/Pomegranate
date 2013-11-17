@@ -168,6 +168,25 @@ h2 {
 
 }
 
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px)
+and (orientation : portrait) {
+
+    #user_nav ul {
+    margin: 0;
+    padding: 0;
+    float: right;
+    height: 100%;
+    width: 50%;
+
+    }
+
+    #user_nav h3 {
+      font-size: 75%;
+    }
+
+ }
 
 
 
