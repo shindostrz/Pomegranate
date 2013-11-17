@@ -296,6 +296,7 @@ $(document).ready(function() {
 
     //adds a marker to the map when user clicks
     google.maps.event.addListener(map,'click',function(e){
+      $('#popup').delay(1000).fadeIn();
       userMarker(e.latLng);
       console.log(marker);
     });

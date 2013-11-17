@@ -16,6 +16,7 @@
 //= require markerclusterer
 //= require hazards
 //= require sessions
+//= require_self
 
 //Disclosure widget for form
 $(document).ready(function() {
@@ -29,6 +30,11 @@ $(document).ready(function() {
   $('#close-sidebar').on('click', function(event) {
     event.preventDefault();
     $('#sidebar').addClass('hidden');
+  });
+
+  $('#close').on('click', function(event) {
+    event.preventDefault();
+    $('#popup').hide();
   });
 
 });
