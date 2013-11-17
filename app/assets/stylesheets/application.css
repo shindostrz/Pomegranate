@@ -77,13 +77,14 @@ a {
 
 a:hover {
   text-decoration: none;
-  color: white;
+  color: #FFF;
   font-family: "museo-sans-rounded";
   font-weight: bolder;
+  font-style: italic;
   letter-spacing: .0745em;
 }
 
-ul {
+#user_nav ul {
   margin: 0;
   padding: 0;
   float: right;
@@ -91,7 +92,7 @@ ul {
   width: 33%;
 }
 
-li {
+#user_nav li {
   float: left;
   text-align: center;
   width: 48%;
@@ -104,6 +105,8 @@ li {
 #blurb {
 /*  position: relative;
 */  top: 13%;
+  position: relative;
+  top: .5%;
   background-color: #5CCDC9;
 /*  font-style: italic;*/
   width: 90%;
@@ -132,4 +135,9 @@ h2 {
   color: white;
   letter-spacing: .0345em;
   font-weight: lighter;
+}
+
+#user_nav img {
+
+  height: 75px;
 }
