@@ -52,6 +52,11 @@ h1 {
   height: 80px;
 }
 
+#header-content img {
+  height: 75px;
+  float: left;
+}
+
 #signed_in {
   float: right;
 /*  margin-right: 1em;
@@ -188,8 +193,4 @@ and (orientation : portrait) {
 
  }
 
-
-
-
-
-
+}
