@@ -61,7 +61,9 @@ a {
 }
 
 #header-content img {
-  height: 75px;
+  height: 70px;
+  width: auto;
+  margin-top: .75%;
   float: left;
 }
 
@@ -122,8 +124,8 @@ header a:hover {
 #link_list img {
  width: 50px;
  height: auto;
- margin: 0 auto;
-
+ padding-top: 10%;
+ padding-left: 28%;
  }
 
 
