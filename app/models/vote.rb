@@ -4,6 +4,4 @@ class Vote < ActiveRecord::Base
   belongs_to :user
   belongs_to :hazard
 
-validates :user_id, uniqueness: true
-
 end

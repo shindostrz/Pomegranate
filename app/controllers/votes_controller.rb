@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
 
-    VoteWorker.perform_in(12.hours)
+    # VoteWorker.perform_in(12.hours)
 
     def index
       hazard = Hazard.find(params[:id])
