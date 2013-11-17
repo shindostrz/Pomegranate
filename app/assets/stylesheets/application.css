@@ -152,10 +152,9 @@ h2 {
 }
 
 #hazard_hazard_type {
-  background: transparent;
+
   background-color: #5CCDC9;
   border: 1px solid #006561;
-  color: #006561;
   border-radius: 3px;
   font-family: "brandon-grotesque";
 
@@ -168,6 +167,7 @@ h2 {
   border-radius: 3px;
 
 }
+
 
 
 
