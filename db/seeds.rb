@@ -19,11 +19,14 @@ User.create([
 ])
 
 Vote.delete_all
+
 Vote.create([
   {voted: true, user_id: 1, hazard_id: 12},
   {voted: false, user_id: 4, hazard_id: 12},
   {voted: false, user_id: 3, hazard_id: 12},
   {voted: false, user_id: 2, hazard_id: 12}
+
+])
 
 Accident.create([
   {latitude: '37.769807', longitude: '-122.4113', details: "Bicyclist struck, killed by Muni bus in SOMA"},
