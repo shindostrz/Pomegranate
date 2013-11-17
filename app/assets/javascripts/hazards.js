@@ -1,8 +1,8 @@
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
-  + '<%= hazard_type %></strong><br><%= description %></p><small>Added: '
-  + '<%= created_at %></small><p><img src="/assets/downvote.png" class="upvote" data-id="<%= id %>"><%= votes %> Upvotes</button>'
-  + '<button class="downvote" data-id="<%= id %>">Down</button>'
-  + '<% if (CURRENT_USER["id"] === user_id) { %><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
+  + '<%= hazard_type %></strong><br><%= description %></p><small><% added = new Date(created_at) %>'
+  + '<%= added %></small><p><img src="/assets/upvote.png" alt="Up Vote" class="upvote" data-id="<%= id %>"><%= votes %>'
+  + '<img src="/assets/downvote.png" alt="Down Vote" class="downvote" data-id="<%= id %>">'
+  + '<% if (CURRENT_USER["id"] === user_id) { %><a href="/hazards/<%= id %>" class="delete" data-method="delete" data-remote="true" rel="nofollow">'
   + 'Delete</a><% } %></p>');
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];

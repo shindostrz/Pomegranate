@@ -173,6 +173,11 @@ h2 {
   cursor: pointer;
 }
 
+.upvote, .downvote {
+  width: 14px;
+  cursor: pointer;
+}
+
 #route_button:hover, #add-marker:hover, #done-marker:hover {
   background-color: #9762A2;
   color: #fff;
