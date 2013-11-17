@@ -70,7 +70,7 @@ a {
   text-decoration: none;
 /*  color: #006561;*/
   color: #FFF;
-  font-family: "museo-sans-rounded";
+  font-family: "brandon-grotesque";
   font-weight: lighter;
   letter-spacing: .0745em;
 }
@@ -78,10 +78,15 @@ a {
 a:hover {
   text-decoration: none;
   color: #FFF;
-  font-family: "museo-sans-rounded";
+  font-family: "brandon-grotesque";
   font-weight: bolder;
-  font-style: italic;
+
   letter-spacing: .0745em;
+}
+
+#user_nav h3 {
+  font-family: "brandon-grotesque";
+  font-weight: lighter;
 }
 
 #user_nav ul {
@@ -137,7 +142,35 @@ h2 {
   font-weight: lighter;
 }
 
-#user_nav img {
+#route_button, #hazard_button, #accident_button {
+  background-color: #5CCDC9;
+  border: 1px solid #006561;
+  color: #006561;
+  border-radius: 3px;
+  font-family: "brandon-grotesque";
 
-  height: 75px;
 }
+
+#hazard_hazard_type {
+  background: transparent;
+  background-color: #5CCDC9;
+  border: 1px solid #006561;
+  color: #006561;
+  border-radius: 3px;
+  font-family: "brandon-grotesque";
+
+}
+
+#origin, #destination, #hazard_latitude, #hazard_longitude, #hazard_description,
+#accident_latitude, #accident_longitude, #accident_details, #accident_news_url {
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 3px;
+
+}
+
+
+
+
+
+

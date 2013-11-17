@@ -13,11 +13,11 @@
     <form>
       <input id="origin" type="text" placeholder="Origin"><br>
       <input id="destination" type="text" placeholder="Destination"><br>
-      <input type="button" value="Get Route" onclick="calcRoute()">
+      <input id="route_button" type="button" value="Get Route" onclick="calcRoute()">
     </form>
   </div>
   <div id="directionsPanel" style="height:100%;width:100%"></div>
-  
+
   <% if current_user %>
     <div class="form_disclosure">
       <img src="assets/arrow-33-xxl.png" class="arrow arrow-toggle"><h2>Add Hazard</h2>
