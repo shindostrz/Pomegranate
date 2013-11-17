@@ -216,8 +216,19 @@ and (orientation : portrait) {
 
     }
 
-    #user_nav h3 {
-      font-size: 75%;
+
+
+    #blurb {
+      display: none;
+    }
+
+    #sidebar {
+      display: none;
+    }
+
+    #signed_in {
+      float: left;
+      width: 10%;
     }
 
  }
