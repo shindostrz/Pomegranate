@@ -1,3 +1,14 @@
+// /hazards/:hazard_id/votes
+
+var getVotes = '/hazards/'+ +'/votes';
+$.ajax({
+  url: '',
+  type: 'get'
+}).done(function(response) {
+  UPVOTES = response['upvotes'];
+  DOWNVOTES = response['downvotes'];
+});
+
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<%= hazard_type %></strong><br><%= description %></p><small>Added: '
   + '<%= created_at %></small><p><button class="upvote" data-id="<%= id %>">Up</button>'
@@ -267,8 +278,9 @@ $(document).ready(function() {
 
   $('div').on("click", ".downvote", function(event) {
     var $hazardId = $(this).attr("data-id");
+    var $voteUrl = '/hazards/'+ $hazardId +'/votes';
       $.ajax({
-      url: '/hazards/'+ $hazardId +'/votes',
+      url: $voteUrl,
       type: 'post',
       data: {
         "vote": false
