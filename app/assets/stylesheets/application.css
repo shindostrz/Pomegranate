@@ -121,6 +121,11 @@ header a:hover {
   border-left: 1px solid #FFF;
 }
 
+#user_nav li {
+  float: right;
+}
+
+
 #link_list img {
  width: 50px;
  height: auto;
