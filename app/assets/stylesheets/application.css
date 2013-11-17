@@ -117,6 +117,11 @@ header a:hover {
   list-style: none;
 }
 
+#user_nav li:hover {
+  background-color: #ECF0F1;
+
+}
+
 #blurb {
   top: 13%;
   position: relative;
