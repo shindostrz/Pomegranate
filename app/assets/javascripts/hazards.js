@@ -2,35 +2,25 @@ var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<%= hazard_type %></strong><br><%= description %></p><small>Added: '
   + '<%= created_at %></small><p><button class="upvote" data-id="<%= id %>"><%= votes %> Upvotes</button>'
   + '<button class="downvote" data-id="<%= id %>">Down</button>'
-  + '<a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
-  + 'Delete</a></p>');
+  + '<% if (CURRENT_USER["id"] === user_id) { %><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
+  + 'Delete</a><% } %></p>');
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
 VOTES = [];
+var CURRENT_USER;
 
 var marker;
 
-//call to controller for accident database info
- var getAccidentData = function() {
-   $.ajax({
-      url: '/accidents.json',
-      type: 'GET'
-    }).done(function(data) {
-      ACCIDENT_DATA = data;
-      INITIALIZE();
-    });
- };
-
-//call to controller for hazard database info
+//call to controller for all database info needed
  var getHazardData = function() {
-
-  //call to controller for hazard database info
   $.ajax({
     url: '/hazards.json',
     type: 'GET'
   }).done(function(data) {
     HAZARD_DATA = data['hazards'];
     VOTES = data['votes'];
+    CURRENT_USER = data['currentUser'];
+    ACCIDENT_DATA = data['accidents'];
     INITIALIZE();
   });
  };
@@ -250,7 +240,6 @@ var clearForm = function() {
 
 $(document).ready(function() {
   getHazardData();
-  getAccidentData();
 
   $('div').on("click", ".upvote", function(event){
   var $hazardId = $(this).attr("data-id");
@@ -283,7 +272,6 @@ $(document).ready(function() {
   });
 
   $('#add-marker').on("click", function(event) {
-    // event.stopPropagation();
     alert("Click on map to add your marker");
 
     //adds a marker to the map when user clicks
@@ -296,8 +284,7 @@ $(document).ready(function() {
 
   $('#done-marker').on("click", function(event) {
     console.log("working");
-    // event.stopPropagation();
-    $('#add-marker').unbind('click');
+    google.maps.event.clearListeners(map, 'click');
   });
 
 });
