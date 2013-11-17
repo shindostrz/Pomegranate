@@ -94,10 +94,10 @@ header a:hover {
   letter-spacing: .0745em;
 }
 
-#user_nav h3 {
+/*#user_nav h3 {
   font-family: "brandon-grotesque";
   font-weight: lighter;
-}
+}*/
 
 #user_nav ul {
   margin: 0;
@@ -109,18 +109,23 @@ header a:hover {
 
 #user_nav li {
   float: left;
-  text-align: center;
   width: 48%;
   height: 100%;
-  border-right: 1px solid #FFF;
-  border-left: 1px solid #FFF;
   list-style: none;
 }
 
 #user_nav li:hover {
-  background-color: #ECF0F1;
-
+  border-right: 1px solid #FFF;
+  border-left: 1px solid #FFF;
 }
+
+#link_list img {
+ width: 50px;
+ height: auto;
+ margin: 0 auto;
+
+ }
+
 
 #blurb {
   top: 13%;
@@ -159,16 +164,16 @@ h2 {
 
 #route_button, #hazard_button, #accident_button, button {
   background-color: #ECF0F1;
-  border: 1px solid #006561;
-  color: #006561;
+  border: 1px solid #9762A2;
+  color: #9762A2;
   border-radius: 3px;
   font-family: "brandon-grotesque";
   cursor: pointer;
 }
 
 #route_button:hover, #add-marker:hover, #done-marker:hover {
-  background-color: #006561;
-  color: #ECF0F1;
+  background-color: #9762A2;
+  color: #fff;
 }
 
 #hazard_hazard_type {
