@@ -105,7 +105,7 @@ function INITIALIZE() {
   var hazards, i;
   _.each(HAZARD_DATA, function(hazard) {
     hazards = new google.maps.Marker({
-      icon: '/assets/hazard.png',
+      //icon: '/assets/exclamation.png',
       position: new google.maps.LatLng(hazard['latitude'], hazard['longitude']),
       animation: google.maps.Animation.DROP,
       map:map
@@ -125,7 +125,7 @@ function INITIALIZE() {
   var deaths, x;
   _.each(ACCIDENT_DATA, function(accident) {
     deaths = new google.maps.Marker({
-      icon: '/assets/red-dot.png',
+      //icon: '/assets/error.png',
       position: new google.maps.LatLng(accident['latitude'], accident['longitude']),
       animation: google.maps.Animation.DROP,
       map: map
@@ -139,31 +139,31 @@ function INITIALIZE() {
     })(deaths, x));
   });
 
-  // var clusterStyles = [
-  //   {
-  //     opt_textColor: 'white',
-  //     url: '/assets/MarkerGrey.png',
-  //     height: 43,
-  //     width: 27,
-  //     textSize: 1
-  //   },
-  // {
-  //     opt_textColor: 'white',
-  //     url: '/assets/MarkerGrey.png',
-  //     height: 43,
-  //     width: 27,
-  //     textSize: 1
-  //   },
-  // {
-  //     opt_textColor: 'white',
-  //     url: '/assets/MarkerGrey.png',
-  //     height: 43,
-  //     width: 27,
-  //     textSize: 1
-  //   }
-  // ];
+var clusterStyles = [
+    {
+      opt_textColor: 'white',
+      url: '/assets/Watches.png',
+      height: 43,
+      width: 27,
+      textSize: 1
+    },
+  {
+      opt_textColor: 'white',
+      url: '/assets/Watches.png',
+      height: 43,
+      width: 27,
+      textSize: 1
+    },
+  {
+      opt_textColor: 'white',
+      url: '/assets/Watches.png',
+      height: 43,
+      width: 27,
+      textSize: 1
+    }
+  ];
 
-  var mcOptions = {gridSize: 50, maxZoom:15}; //needs to add clusterstyle
+  var mcOptions = {gridSize: 50, maxZoom:16}; //needs to add clusterstyle
 
   var mc = new MarkerClusterer(map,markersArray, mcOptions);
 
