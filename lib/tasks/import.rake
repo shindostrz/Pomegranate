@@ -23,7 +23,7 @@ task :import => :environment do
     rescue
       p addr
     end
-
+    sleep 0.25
   end
 
 end
