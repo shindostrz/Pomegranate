@@ -8,6 +8,7 @@ task :import => :environment do
 
   CSV.foreach(file, :headers => true) do |row|
     begin
+    date = row[1]
     addr = row[10]
     result = Geocoder.coordinates(addr)
     lat = result[0]
@@ -15,13 +16,13 @@ task :import => :environment do
     Accident.create ({
       :latitude => lat,
       :longitude => lon,
-      :details => "Bay Citizen data, 2009-10"
+      :accident_date => date,
+      :details => "Bay Citizen data, 2009-10",
+      :news_url => "http://secret-taiga-2483.herokuapp.com/data/bike-accidents/"
       })
     rescue
       p addr
-      # p "empty coordinates"
     end
-    sleep 0.25
 
   end
 
