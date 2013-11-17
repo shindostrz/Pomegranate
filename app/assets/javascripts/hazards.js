@@ -53,9 +53,9 @@ function INITIALIZE() {
     $(controlDiv).append(controlUI);
 
   var legend = '<ul>'
-             + '<li><span class="trail">&nbsp;&nbsp;</span><span> Trails </span></li>'
-             + '<li><span class="dedicated-lane">&nbsp;&nbsp;</span><span> Dedicated lanes </span></li>'
-             + '<li><span class="friendly">&nbsp;&nbsp;</span><span> Bicycle friendly roads </span></li>'
+             + '<li><span id="trail">&nbsp;&nbsp;</span><span> Trails </span></li>'
+             + '<li><span id="dedicated-lane">&nbsp;&nbsp;</span><span> Dedicated lanes </span></li>'
+             + '<li><span id="friendly">&nbsp;&nbsp;</span><span> Bicycle friendly roads </span></li>'
              + '</ul>';
 
   var controlLegend = document.createElement('DIV');
