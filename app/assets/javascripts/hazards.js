@@ -1,6 +1,6 @@
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<%= hazard_type %></strong><br><%= description %></p><small>Added: '
-  + '<%= created_at %></small><p><button class="upvote" data-id="<%= id %>"><%= votes %> Upvotes</button>'
+  + '<%= created_at %></small><p><img src="/assets/downvote.png" class="upvote" data-id="<%= id %>"><%= votes %> Upvotes</button>'
   + '<button class="downvote" data-id="<%= id %>">Down</button>'
   + '<% if (CURRENT_USER["id"] === user_id) { %><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
   + 'Delete</a><% } %></p>');
@@ -21,12 +21,33 @@ var marker;
     VOTES = data['votes'];
     CURRENT_USER = data['currentUser'];
     ACCIDENT_DATA = data['accidents'];
-    INITIALIZE();
+    getGeoLocation();
   });
  };
 
 var map;
 var directionsService, directionsDisplay;
+
+var getGeoLocation = function() {
+  if (!navigator.geolocation){
+    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+    return;
+  }
+
+  function success(position) {
+      userLat = position.coords.latitude;
+      userLong = position.coords.longitude;
+      INITIALIZE();
+  }
+
+  function error() {
+    userLat = 37.7833;
+    userLong = -122.4167;
+    INITIALIZE();
+  }
+
+  navigator.geolocation.getCurrentPosition(success, error);
+};
 
 function INITIALIZE() {
 
@@ -64,14 +85,11 @@ function INITIALIZE() {
         $(controlLegend).hide();
     });
 
-
-  //default area within san francisco
-  var sfLatlng = new google.maps.LatLng(37.7833, -122.4167);
-
-  //zoomed in san francisco centering on the latlng above
+  var userLatlng = new google.maps.LatLng(userLat, userLong);
+  //zoomed in, centering on the latlng above
   var mapOptions = {
     zoom: 13,
-    center: sfLatlng,
+    center: userLatlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
