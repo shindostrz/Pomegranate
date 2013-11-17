@@ -1,5 +1,7 @@
 Pomegranate::Application.routes.draw do
 
+  require 'sidekiq/web'
+
   root to: "hazards#index"
 
   resources :hazards do
@@ -10,5 +12,7 @@ Pomegranate::Application.routes.draw do
 
   match "/auth/:provider/callback" => "sessions#create"
   match "/signout" => "sessions#destroy", :as => :signout
+
+  mount Sidekiq::Web, at: "/sidekiq"
 
 end

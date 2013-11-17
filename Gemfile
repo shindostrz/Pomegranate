@@ -7,6 +7,9 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'figaro'
 gem 'geocoder'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
 
 group :development, :test do
   gem 'rspec-rails'
