@@ -198,7 +198,6 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 3.2.3)
   shoulda-matchers
-  sidekiq
   sidetiq
   sinatra
   slim

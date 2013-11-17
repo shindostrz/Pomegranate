@@ -1,3 +1,14 @@
+// /hazards/:hazard_id/votes
+
+var getVotes = '/hazards/'+ +'/votes';
+$.ajax({
+  url: '',
+  type: 'get'
+}).done(function(response) {
+  UPVOTES = response['upvotes'];
+  DOWNVOTES = response['downvotes'];
+});
+
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<%= hazard_type %></strong><br><%= description %></p><small>Added: '
   + '<%= created_at %></small><p><button class="upvote" data-id="<%= id %>">Up</button>'
@@ -53,9 +64,9 @@ function INITIALIZE() {
     $(controlDiv).append(controlUI);
 
   var legend = '<ul>'
-             + '<li><span class="trail">&nbsp;&nbsp;</span><span> Trails </span></li>'
-             + '<li><span class="dedicated-lane">&nbsp;&nbsp;</span><span> Dedicated lanes </span></li>'
-             + '<li><span class="friendly">&nbsp;&nbsp;</span><span> Bicycle friendly roads </span></li>'
+             + '<li><span id="trail">&nbsp;&nbsp;</span><span> Trails </span></li>'
+             + '<li><span id="dedicated-lane">&nbsp;&nbsp;</span><span> Dedicated lanes </span></li>'
+             + '<li><span id="friendly">&nbsp;&nbsp;</span><span> Bicycle friendly roads </span></li>'
              + '</ul>';
 
   var controlLegend = document.createElement('DIV');
@@ -134,13 +145,6 @@ function INITIALIZE() {
         infowindow.open(map, deaths);
       };
     })(deaths, x));
-  });
-
-  //adds a marker to the map when user clicks
-  google.maps.event.addListener(map,'click',function(e){
-    userMarker(e.latLng);
-    console.log(marker);
-    $('#sidebar').removeClass('hidden');
   });
 
   // var clusterStyles = [
@@ -274,8 +278,9 @@ $(document).ready(function() {
 
   $('div').on("click", ".downvote", function(event) {
     var $hazardId = $(this).attr("data-id");
+    var $voteUrl = '/hazards/'+ $hazardId +'/votes';
       $.ajax({
-      url: '/hazards/'+ $hazardId +'/votes',
+      url: $voteUrl,
       type: 'post',
       data: {
         "vote": false
@@ -284,6 +289,24 @@ $(document).ready(function() {
       console.log(response);
     });
   });
+
+  $('#add-marker').on("click", function(event) {
+    // event.stopPropagation();
+    alert("Click on map to add your marker");
+
+    //adds a marker to the map when user clicks
+    google.maps.event.addListener(map,'click',function(e){
+      userMarker(e.latLng);
+      console.log(marker);
+    });
+  });
+
+  $('#done-marker').on("click", function(event) {
+    console.log("working");
+    // event.stopPropagation();
+    $('#add-marker').unbind('click');
+  });
+
 });
 
 var rendererOptions = {
