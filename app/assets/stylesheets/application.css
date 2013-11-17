@@ -160,6 +160,10 @@ h2 {
   cursor: pointer;
 }
 
+#route_button, #hazard_button, #accident_button:hover {
+  background-color: white;
+}
+
 #hazard_hazard_type {
   background-color: #ECF0F1;
   border: 1px solid #006561;
