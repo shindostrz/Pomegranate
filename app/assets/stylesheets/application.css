@@ -71,6 +71,7 @@ a {
   padding-left: 1em;*/
   border-left: 1px solid #006561;
   text-align: right;
+  padding-left: 5px;
 }
 
 #signed_in p {
@@ -160,8 +161,9 @@ h2 {
   cursor: pointer;
 }
 
-#route_button:hover {
-  background-color: red;
+#route_button:hover, #add-marker:hover, #done-marker:hover {
+  background-color: #006561;
+  color: #ECF0F1;
 }
 
 #hazard_hazard_type {
