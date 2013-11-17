@@ -1,28 +1,20 @@
+//Disclosure widget for form
+$(document).ready(function() {
 
-  //call to controller for accident database info
-  // $.ajax({
-  //   url: '/accidents.json',
-  //   type: 'GET'
-  // }).done(function(data) {
-  //   var accidentData = data;
+  $('.form_disclosure').on('click', function(event) {
+    event.preventDefault();
+    $(this).next('div').toggleClass('hidden');
+    $(this).find('.arrow').toggleClass('arrow-toggle');
+  });
 
+  $('#close-sidebar').on('click', function(event) {
+    event.preventDefault();
+    $('#sidebar').addClass('hidden');
+  });
 
-  //   var deaths, i;
-  //   _.each(accidentData, function(accident) {
-  //     deaths = new google.maps.Marker({
-  //       // icon: '',
-  //       position: new google.maps.LatLng(accident['latitude'], accident['longitude']),
-  //       animation: google.maps.Animation.DROP,
-  //       map: map
-  //     });
-  //     google.maps.event.addListener(deaths, 'mouseover', (function(deaths, i) {
-  //       return function() {
-  //         infowindow.setContent("testing");
-  //         infowindow.open(map, deaths);
-  //       };
-  //     })(deaths, i));
-  //   });
+  $('#close-modal').on('click', function(event) {
+    event.preventDefault();
+    $('#popup').hide();
+  });
 
-
-  // });
-
+});

@@ -1,22 +1,12 @@
-// /hazards/:hazard_id/votes
-
-var getVotes = '/hazards/'+ +'/votes';
-$.ajax({
-  url: '',
-  type: 'get'
-}).done(function(response) {
-  UPVOTES = response['upvotes'];
-  DOWNVOTES = response['downvotes'];
-});
-
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<%= hazard_type %></strong><br><%= description %></p><small>Added: '
-  + '<%= created_at %></small><p><button class="upvote" data-id="<%= id %>">Up</button>'
+  + '<%= created_at %></small><p><button class="upvote" data-id="<%= id %>"><%= votes %> Upvotes</button>'
   + '<button class="downvote" data-id="<%= id %>">Down</button>'
   + '<a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
   + 'Delete</a></p>');
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
+VOTES = [];
 
 var marker;
 
@@ -39,11 +29,11 @@ var marker;
     url: '/hazards.json',
     type: 'GET'
   }).done(function(data) {
-    HAZARD_DATA = data;
+    HAZARD_DATA = data['hazards'];
+    VOTES = data['votes'];
     INITIALIZE();
   });
  };
-
 
 var map;
 var directionsService, directionsDisplay;
@@ -115,7 +105,7 @@ function INITIALIZE() {
   var hazards, i;
   _.each(HAZARD_DATA, function(hazard) {
     hazards = new google.maps.Marker({
-      // icon: '',
+      icon: '/assets/hazard.png',
       position: new google.maps.LatLng(hazard['latitude'], hazard['longitude']),
       animation: google.maps.Animation.DROP,
       map:map
@@ -123,6 +113,8 @@ function INITIALIZE() {
     markersArray.push(hazards);
     google.maps.event.addListener(hazards, 'click', (function(hazards, i) {
       return function() {
+        var hazardVotes = _.findWhere(VOTES, {hazard_id: hazard.id});
+        hazard['votes'] = hazardVotes['upvotes'];
         infowindow.setContent(infoWindowTemplate(hazard));
         infowindow.open(map, hazards);
       };
@@ -296,7 +288,7 @@ $(document).ready(function() {
 
     //adds a marker to the map when user clicks
     google.maps.event.addListener(map,'click',function(e){
-      $('#popup').delay(900).fadeIn('fast');
+      $('#popup').delay(500).fadeIn('fast');
       userMarker(e.latLng);
       console.log(marker);
     });

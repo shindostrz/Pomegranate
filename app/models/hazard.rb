@@ -19,4 +19,13 @@ class Hazard < ActiveRecord::Base
     return output
   end
 
+  def voteCount
+    output = []
+    Hazard.all.each do |hazard|
+      trueVotes = hazard.votes.where(voted: true).count
+      output << {hazard_id: hazard.id, upvotes: trueVotes}
+    end
+    return output
+  end
+
 end
