@@ -1,7 +1,7 @@
  <% unless current_user %>
   <div id="blurb">
     <p>
-      Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows. Some pilots get picked and become television programs. Some don't, become nothing. She starred in one of the ones that became nothing.
+      City streets are used by all modes of transit, but cyclists are especially vulnerable to conditions on the road. <strong>Bikeway</strong> makes your bicycle travels safer and more convenient by showing you the potential hazards in your daily routes. Join the <strong>Bikeway</strong> community by contributing your experience, and together we can keep the streets safe for everyone!
     </p>
   </div>
 <% end %>
@@ -16,7 +16,7 @@
       <input id="route_button" type="button" value="Get Route" onclick="calcRoute()">
     </form>
   </div>
-  <div id="directionsPanel" style="height:100%;width:100%"></div>
+  <div id="directionsPanel"></div>
 
   <% if current_user %>
     <div class="form_disclosure">
@@ -35,6 +35,12 @@
       <%= render 'accidents/accident_form', :accident => @accident %>
     </div>
   <% end %>
+<hr>
+  <footer>
+    <small>
+      Created by: <%= link_to 'Amy MacKinnon', 'http://amy-mac.com', title: 'Amy\'s Site', target: '_blank' %>, Francisco Orozco, Shindo Strzelyck, and Richard Yang at General Assembly
+    </small>
+  </footer>
 
 </div>
 
