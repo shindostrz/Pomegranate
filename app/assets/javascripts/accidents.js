@@ -12,7 +12,7 @@ $(document).ready(function() {
     $('#sidebar').addClass('hidden');
   });
 
-  $('#close').on('click', function(event) {
+  $('#close-modal').on('click', function(event) {
     event.preventDefault();
     $('#popup').hide();
   });
