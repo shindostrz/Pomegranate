@@ -18,10 +18,9 @@
 
 <header>
   <div id="header-content">
-    <h1>BikeWay</h1>
-    <!-- <%= image_tag('bikeway.png') %> -->
-    <nav id="user_nav">
 
+    <nav id="user_nav">
+      <img src="assets/bikeway.png" height="75px">
       <% if current_user %>
         <div id="signed_in">
           <p>Welcome <strong><%= current_user.name %>!</strong></p>
