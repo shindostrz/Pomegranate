@@ -136,13 +136,6 @@ function INITIALIZE() {
     })(deaths, x));
   });
 
-  //adds a marker to the map when user clicks
-  google.maps.event.addListener(map,'click',function(e){
-    userMarker(e.latLng);
-    console.log(marker);
-    $('#sidebar').removeClass('hidden');
-  });
-
   // var clusterStyles = [
   //   {
   //     opt_textColor: 'white',
@@ -284,6 +277,24 @@ $(document).ready(function() {
       console.log(response);
     });
   });
+
+  $('#add-marker').on("click", function(event) {
+    // event.stopPropagation();
+    alert("Click on map to add your marker");
+
+    //adds a marker to the map when user clicks
+    google.maps.event.addListener(map,'click',function(e){
+      userMarker(e.latLng);
+      console.log(marker);
+    });
+  });
+
+  $('#done-marker').on("click", function(event) {
+    console.log("working");
+    // event.stopPropagation();
+    $('#add-marker').unbind('click');
+  });
+
 });
 
 var rendererOptions = {
