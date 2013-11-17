@@ -11,6 +11,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'sidetiq'
+gem 'unicorn'
 
 group :development, :test do
   gem 'rspec-rails'
