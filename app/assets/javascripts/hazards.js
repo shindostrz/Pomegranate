@@ -1,5 +1,5 @@
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
-  + '<%= hazard_type %></strong><br><% if (description) { %><%= description %><% } %><small><% var added = new Date(created_at) %>'
+  + '<%= hazard_type %></strong><br><% if (description) { %><%= description %><br><% } %><small><% var added = new Date(created_at) %>'
   + '<% var year = added.getFullYear(); var day = added.getDate(); var month = added.getMonth(); %>'
   + '<%= year %>-<%= month %>-<%= day %></small></p><p><img src="/assets/upvote.png" alt="Up Vote" class="upvote" data-id="<%= id %>"><%= votes %>'
   + '<img src="/assets/downvote.png" alt="Down Vote" class="downvote" data-id="<%= id %>">'
@@ -8,7 +8,8 @@ var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
 
 var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</strong>'
   + '<% if (accident_date) { %><br><% var accidentDate = new Date(accident_date) %>'
-  + '<%= accidentDate %><% } %><br><%= details %></p>'
+  + '<% var year = accidentDate.getFullYear(); var day = accidentDate.getDate(); var month = accidentDate.getMonth(); %>'
+  + '<%= year %>-<%= month %>-<%= day %><% } %><br><%= details %></p>'
   + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %>');
 
 ACCIDENT_DATA = [];
@@ -217,10 +218,10 @@ function userMarker(location) {
     };
   })(marker));
   $('#hazard_button').on('click', function(event) {
-    $('#popup').hide();
+    $('#popup').delay(500).fadeOut();
   });
   $('#accident_button').on('click', function(event) {
-    $('#popup').hide();
+    $('#popup').delay(500).fadeOut();
   });
 }
 
@@ -257,7 +258,7 @@ $(document).ready(function() {
       "vote": true
     }
   }).done(function(response){
-    console.log(response);
+    getHazardData();
   });
 
 });
@@ -272,23 +273,21 @@ $(document).ready(function() {
         "vote": false
       }
     }).done(function(response){
-      console.log(response);
+      getHazardData();
     });
   });
 
   $('#add-marker').on("click", function(event) {
-    alert("Click on map to add your marker");
+    $('#add-marker').next('p').append('Click on map to place marker');
 
     //adds a marker to the map when user clicks
     google.maps.event.addListener(map,'click',function(e){
       $('#popup').delay(500).fadeIn('fast');
       userMarker(e.latLng);
-      console.log(marker);
     });
   });
 
   $('#done-marker').on("click", function(event) {
-    console.log("working");
     google.maps.event.clearListeners(map, 'click');
   });
 

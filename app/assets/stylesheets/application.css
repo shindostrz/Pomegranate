@@ -54,6 +54,12 @@ a {
   text-decoration: none;
 }
 
+hr {
+  border-color: #9762A2;
+  width: 90%;
+  margin-top: 1em;
+}
+
 #user_nav {
 /*  background-color: #5CCDC9;
 */margin-bottom: 1.5em;
@@ -137,10 +143,9 @@ header a:hover {
 
 
 #blurb {
-  top: 13%;
   position: relative;
   top: .5%;
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
   padding-left: 1em;
   padding-right: 1em;
@@ -184,11 +189,16 @@ h2 {
   font-family: "brandon-grotesque";
   cursor: pointer;
   padding: 7px;
+  font-size: 0.8em;
 }
 
 .upvote, .downvote {
   width: 14px;
   cursor: pointer;
+}
+
+.gm-style img {
+  padding-left: 2px;
 }
 
 #route_button:hover, #add-marker:hover, #done-marker:hover, button:hover {
@@ -208,6 +218,7 @@ form input, form textarea {
   background-color: #fff;
   border: 1px solid #fff;
   border-radius: 3px;
+  font-size: 0.8em;
 }
 
 form input[type=button] {
@@ -216,7 +227,12 @@ form input[type=button] {
 
 #directions-form form {
   text-align: right;
-  width: 75%;
+}
+
+#directions-form {
+  width: 95%;
+  margin-bottom: 2em;
+  height: auto;
 }
 
 @media only screen
