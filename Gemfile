@@ -12,6 +12,7 @@ gem 'sinatra', require: false
 gem 'slim'
 gem 'sidetiq', '>= 0.4.3'
 gem 'unicorn'
+gem 'zeus'
 
 group :development, :test do
   gem 'rspec-rails'
