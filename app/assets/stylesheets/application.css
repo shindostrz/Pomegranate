@@ -199,6 +199,7 @@ h2 {
 
 .gm-style img {
   padding-left: 2px;
+  padding-right: 2px;
 }
 
 #route_button:hover, #add-marker:hover, #done-marker:hover, button:hover {

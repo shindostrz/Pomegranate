@@ -172,7 +172,7 @@ var clusterStyles = [
     textSize: 10
 }];
 
-  var mcOptions = {gridSize: 100, maxZoom: 15}; //needs to add clusterstyle
+  var mcOptions = {gridSize: 50, maxZoom: 15}; //needs to add clusterstyle
 
   var mc = new MarkerClusterer(map,markersArray, mcOptions);
 
@@ -219,9 +219,11 @@ function userMarker(location) {
   })(marker));
   $('#hazard_button').on('click', function(event) {
     $('#popup').delay(500).fadeOut();
+    $('#add-marker').next('p').remove();
   });
   $('#accident_button').on('click', function(event) {
     $('#popup').delay(500).fadeOut();
+    $('#add-marker').next('p').remove();
   });
 }
 
