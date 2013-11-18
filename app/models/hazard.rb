@@ -3,7 +3,7 @@ class Hazard < ActiveRecord::Base
   attr_accessible :latitude, :longitude, :description, :hazard_type, :user_id
 
   belongs_to :user
-  has_many :votes
+  has_many :votes, dependent: :destroy
 
   validates :latitude, presence: true
   validates :longitude, presence: true

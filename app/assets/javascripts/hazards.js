@@ -1,9 +1,16 @@
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
-  + '<%= hazard_type %></strong><br><%= description %></p><small><% added = new Date(created_at) %>'
-  + '<%= added %></small><p><img src="/assets/upvote.png" alt="Up Vote" class="upvote" data-id="<%= id %>"><%= votes %>'
+  + '<%= hazard_type %></strong><br><% if (description) { %><%= description %><% } %><small><% var added = new Date(created_at) %>'
+  + '<% var year = added.getFullYear(); var day = added.getDate(); var month = added.getMonth(); %>'
+  + '<%= year %>-<%= month %>-<%= day %></small></p><p><img src="/assets/upvote.png" alt="Up Vote" class="upvote" data-id="<%= id %>"><%= votes %>'
   + '<img src="/assets/downvote.png" alt="Down Vote" class="downvote" data-id="<%= id %>">'
-  + '<% if (CURRENT_USER["id"] === user_id) { %><a href="/hazards/<%= id %>" class="delete" data-method="delete" data-remote="true" rel="nofollow">'
-  + 'Delete</a><% } %></p>');
+  + '<% if (CURRENT_USER) { if (CURRENT_USER["id"] === user_id) { %><a href="/hazards/<%= id %>" class="delete" data-method="delete" data-remote="true" rel="nofollow">'
+  + 'Delete</a><% } } %></p>');
+
+var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</strong>'
+  + '<% if (accident_date) { %><br><% var accidentDate = new Date(accident_date) %>'
+  + '<%= accidentDate %><% } %><br><%= details %></p>'
+  + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %>');
+
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
 VOTES = [];
@@ -113,7 +120,7 @@ function INITIALIZE() {
   var hazards, i;
   _.each(HAZARD_DATA, function(hazard) {
     hazards = new google.maps.Marker({
-      //icon: '/assets/exclamation.png',
+      icon: '/assets/hazard.png',
       position: new google.maps.LatLng(hazard['latitude'], hazard['longitude']),
       animation: google.maps.Animation.DROP,
       map:map
@@ -133,7 +140,7 @@ function INITIALIZE() {
   var deaths, x;
   _.each(ACCIDENT_DATA, function(accident) {
     deaths = new google.maps.Marker({
-      //icon: '/assets/error.png',
+      icon: '/assets/error.png',
       position: new google.maps.LatLng(accident['latitude'], accident['longitude']),
       animation: google.maps.Animation.DROP,
       map: map
@@ -141,7 +148,7 @@ function INITIALIZE() {
     markersArray.push(deaths);
     google.maps.event.addListener(deaths, 'click', (function(deaths, x) {
       return function() {
-        infowindow.setContent("Bicycle Accident");
+        infowindow.setContent(infoWindowTemplateAccidents(accident));
         infowindow.open(map, deaths);
       };
     })(deaths, x));
@@ -216,25 +223,12 @@ function userMarker(location) {
       setForm(marker.getPosition().ob, marker.getPosition().pb);
     };
   })(marker));
-  // $('#hazard_button').on('click', function(event) {
-  //   marker.setDraggable(false);
-  //   var savedMarker = marker;
-  //   google.maps.event.addListener(savedMarker, 'click', (function(marker) {
-  //     return function() {
-  //       newPinInfoWindow.setContent($('#hazard_hazard_type').val());
-  //       newPinInfoWindow.open(map, marker);
-  //     };
-  //   })(savedMarker));
-  // });
-  // $('#accident_button').on('click', function(event) {
-  //   marker.setDraggable(false);
-  //   google.maps.event.addListener(marker, 'click', (function(marker) {
-  //     return function() {
-  //       newPinInfoWindow.setContent($('#accident_details').val());
-  //       newPinInfoWindow.open(map, marker);
-  //     };
-  //   })(marker));
-  // });
+  $('#hazard_button').on('click', function(event) {
+    $('#popup').hide();
+  });
+  $('#accident_button').on('click', function(event) {
+    $('#popup').hide();
+  });
 }
 
 var clearMarker = function(marker) {
