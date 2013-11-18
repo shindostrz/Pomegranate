@@ -241,8 +241,10 @@ var setForm = function(lat, lng) {
 var clearForm = function() {
   $('#hazard_latitude').val('');
   $('#hazard_longitude').val('');
+  $('#hazard_description').val('');
   $('#accident_latitude').val('');
   $('#accident_longitude').val('');
+  $('#accident_details').val('');
 };
 
 
@@ -280,8 +282,10 @@ $(document).ready(function() {
   });
 
   $('#add-marker').on("click", function(event) {
+    $('#add-marker').next('p').empty();
     $('#add-marker').next('p').append('Click on map to place marker');
-
+    clearForm();
+    
     //adds a marker to the map when user clicks
     google.maps.event.addListener(map,'click',function(e){
       $('#popup').delay(500).fadeIn('fast');
