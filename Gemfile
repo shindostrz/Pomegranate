@@ -7,10 +7,10 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'figaro'
 gem 'geocoder'
-gem 'sidekiq'
+gem 'sidekiq', '~> 2.15.0'
 gem 'sinatra', require: false
 gem 'slim'
-gem 'sidetiq'
+gem 'sidetiq', '>= 0.4.3'
 gem 'unicorn'
 
 group :development, :test do

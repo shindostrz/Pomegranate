@@ -149,15 +149,16 @@ GEM
       tilt (~> 1.3)
     shoulda-matchers (2.4.0)
       activesupport (>= 3.0.0)
-    sidekiq (2.16.1)
+    sidekiq (2.15.2)
       celluloid (>= 0.15.2)
       connection_pool (>= 1.0.0)
       json
       redis (>= 3.0.4)
       redis-namespace (>= 1.3.1)
-    sidetiq (0.1.2)
-      ice_cube
-      sidekiq
+    sidetiq (0.4.3)
+      celluloid (>= 0.14.1)
+      ice_cube (~> 0.11.0)
+      sidekiq (~> 2.15.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -204,8 +205,8 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 3.2.3)
   shoulda-matchers
-  sidekiq
-  sidetiq
+  sidekiq (~> 2.15.0)
+  sidetiq (>= 0.4.3)
   sinatra
   slim
   uglifier (>= 1.0.3)
