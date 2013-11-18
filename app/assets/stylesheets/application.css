@@ -52,6 +52,15 @@ h1 {
 
 a {
   text-decoration: none;
+  color: rgb(21, 99, 184);
+}
+
+a:visited {
+  color: rgb(102, 144, 190);
+}
+
+a:hover {
+  color: rgb(13, 56, 104);
 }
 
 hr {
@@ -102,6 +111,10 @@ header a:hover {
   letter-spacing: .0745em;
 }
 
+header a:visited {
+  color: #FFF;
+}
+
 /*#user_nav h3 {
   font-family: "brandon-grotesque";
   font-weight: lighter;
@@ -116,10 +129,11 @@ header a:hover {
 }
 
 #user_nav li {
-  float: left;
   width: 30%;
   height: 100%;
   list-style: none;
+  text-align: center;
+  float: left;
 }
 
 
@@ -128,18 +142,12 @@ header a:hover {
 
 }
 
-
-#user_nav li {
-  float: right;
-}
-
-
 #link_list img {
  width: 50px;
  height: auto;
  padding-top: 10%;
- padding-left: 20%;
- }
+ padding-left: 23%;
+}
 
 
 #blurb {
