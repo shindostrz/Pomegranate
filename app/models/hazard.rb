@@ -23,7 +23,9 @@ class Hazard < ActiveRecord::Base
     output = []
     Hazard.all.each do |hazard|
       trueVotes = hazard.votes.where(voted: true).count
-      output << {hazard_id: hazard.id, upvotes: trueVotes}
+      falseVotes = hazard.votes.where(voted: false).count
+      rating = trueVotes - falseVotes
+      output << {hazard_id: hazard.id, upvotes: rating}
     end
     return output
   end
