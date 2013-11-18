@@ -19,9 +19,9 @@
 }
 
 #inner-popup {
-  width: 660px;
+  width: 300px;
   height: auto;
-  margin: 85px auto;
+  margin: 70px auto;
   background-color: #ECF0F1;
   padding: 10px 35px 40px 35px;
   border: 1px solid #E0DBDB;
@@ -49,7 +49,7 @@
 
 #close-modal {
   cursor: pointer;
-  text-align: right;
+  float: right;
 }
 
 .gmap-control-container {

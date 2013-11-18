@@ -187,7 +187,7 @@ h2 {
   cursor: pointer;
 }
 
-#route_button:hover, #add-marker:hover, #done-marker:hover {
+#route_button:hover, #add-marker:hover, #done-marker:hover, button:hover {
   background-color: #9762A2;
   color: #fff;
 }
@@ -204,7 +204,15 @@ form input, form textarea {
   background-color: #fff;
   border: 1px solid #fff;
   border-radius: 3px;
+}
 
+form input[type=button] {
+  margin-top: 8px;
+}
+
+#directions-form form {
+  text-align: right;
+  width: 75%;
 }
 
 @media only screen
@@ -212,28 +220,25 @@ and (min-device-width : 320px)
 and (max-device-width : 568px)
 and (orientation : portrait) {
 
-    #user_nav ul {
+  #user_nav ul {
     margin: 0;
     padding: 0;
     float: right;
     height: 100%;
     width: 50%;
+  }
 
-    }
+  #blurb {
+    display: none;
+  }
 
+  #sidebar {
+    display: none;
+  }
 
-
-    #blurb {
-      display: none;
-    }
-
-    #sidebar {
-      display: none;
-    }
-
-    #signed_in {
-      float: left;
-      width: 10%;
-    }
+  #signed_in {
+    float: left;
+    width: 10%;
+  }
 
  }
