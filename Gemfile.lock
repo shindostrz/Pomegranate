@@ -187,6 +187,8 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    zeus (0.13.3)
+      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -211,3 +213,4 @@ DEPENDENCIES
   slim
   uglifier (>= 1.0.3)
   unicorn
+  zeus
