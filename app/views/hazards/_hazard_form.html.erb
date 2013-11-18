@@ -2,6 +2,6 @@
   <%= f.text_field :latitude, placeholder: "Latitude", required: true %><br>
   <%= f.text_field :longitude, placeholder: "Longitude", required: true %><br>
   <%= f.select(:hazard_type, [['Construction', 'Construction'], ['Poor Lighting', 'Poor Lighting'], ['Pothole', 'Pothole'],['Unpaved Road', 'Unpaved Road'], ['Frequent Wildlife', 'Frequent Wildlife'], ['Other', 'Other']]) %><br>
-  <%= f.text_area :description, placeholder: "Optional Description", rows: 4, cols: 24 %><br>
+  <%= f.text_area :description, placeholder: "Optional Description", rows: 10, cols: 40 %><br>
   <%= f.submit "Add", id: "hazard_button" %>
 <% end %>
