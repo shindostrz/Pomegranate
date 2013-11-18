@@ -116,10 +116,12 @@ header a:hover {
   list-style: none;
 }
 
+
 #user_nav li:hover {
-  border-right: 1px solid #FFF;
-  border-left: 1px solid #FFF;
+  background-color: rgb(21, 99, 184);
+
 }
+
 
 #user_nav li {
   float: right;
@@ -149,6 +151,7 @@ header a:hover {
 
 #blurb p {
   color: rgb(21, 99, 184);
+
 }
 
 #sidebar {
