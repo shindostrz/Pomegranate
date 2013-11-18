@@ -229,7 +229,7 @@ form input, form textarea {
   font-size: 0.8em;
 }
 
-form input[type=button] {
+form input[type=button], form input[type=submit] {
   margin-top: 8px;
 }
 
