@@ -143,12 +143,12 @@ header a:hover {
   padding-left: 1em;
   padding-right: 1em;
   border-radius: 15px;
-  border: 1px solid #9762A2;
+  border: 1px solid rgb(21, 99, 184);
   margin-bottom: 1.5em;
 }
 
 #blurb p {
-  color: #9762A2;
+  color: rgb(21, 99, 184);
 }
 
 #sidebar {
