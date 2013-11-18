@@ -4,6 +4,12 @@ var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<img src="/assets/downvote.png" alt="Down Vote" class="downvote" data-id="<%= id %>">'
   + '<% if (CURRENT_USER) { if (CURRENT_USER["id"] === user_id) { %><a href="/hazards/<%= id %>" class="delete" data-method="delete" data-remote="true" rel="nofollow">'
   + 'Delete</a><% } } %></p>');
+
+var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</strong>'
+  + '<% if (accident_date) { %><br><% accidentDate = new Date(accident_date) %>'
+  + '<%= accidentDate %><% } %><br><%= details %></p>'
+  + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %>');
+
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
 VOTES = [];
@@ -141,7 +147,7 @@ function INITIALIZE() {
     markersArray.push(deaths);
     google.maps.event.addListener(deaths, 'click', (function(deaths, x) {
       return function() {
-        infowindow.setContent("Bicycle Accident");
+        infowindow.setContent(infoWindowTemplateAccidents(accident));
         infowindow.open(map, deaths);
       };
     })(deaths, x));
