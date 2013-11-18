@@ -13,7 +13,7 @@ class VoteWorker
       rating = true_count - false_count
 
       if rating <= -3
-        Hazard.find(hazard.id).delete
+        Hazard.find(hazard.id).destroy
       end
 
     end
