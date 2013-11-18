@@ -120,7 +120,7 @@ function INITIALIZE() {
   var hazards, i;
   _.each(HAZARD_DATA, function(hazard) {
     hazards = new google.maps.Marker({
-      //icon: '/assets/cone.png',
+      icon: '/assets/hazard.png',
       position: new google.maps.LatLng(hazard['latitude'], hazard['longitude']),
       animation: google.maps.Animation.DROP,
       map:map
