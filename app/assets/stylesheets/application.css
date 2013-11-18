@@ -32,6 +32,7 @@ header {
   width: 100%;
   background-color: #9762A2;
   top: 0;
+  margin-bottom: 1.5em;
 }
 
 #header-content {
@@ -70,8 +71,6 @@ hr {
 }
 
 #user_nav {
-/*  background-color: #5CCDC9;
-*/margin-bottom: 1.5em;
   height: 80px;
 }
 
@@ -257,6 +256,10 @@ and (orientation : portrait) {
     width: 50%;
   }
 
+  header {
+    margin-bottom: 0;
+  }
+
   #blurb {
     display: none;
   }
@@ -270,7 +273,7 @@ and (orientation : portrait) {
     width: 10%;
   }
 
- }
+}
 
 
  /* Start by setting display:none to make this hidden.
