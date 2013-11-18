@@ -16,7 +16,7 @@ $(document).ready(function() {
 
   $('#close-modal').on('click', function(event) {
     event.preventDefault();
-    $('#popup').hide();
+    $('#popup').fadeOut();
   });
 
 });
