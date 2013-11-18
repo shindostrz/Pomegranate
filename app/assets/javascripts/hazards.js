@@ -280,8 +280,9 @@ $(document).ready(function() {
   });
 
   $('#add-marker').on("click", function(event) {
+    $('#add-marker').next('p').empty();
     $('#add-marker').next('p').append('Click on map to place marker');
-
+    
     //adds a marker to the map when user clicks
     google.maps.event.addListener(map,'click',function(e){
       $('#popup').delay(500).fadeIn('fast');
