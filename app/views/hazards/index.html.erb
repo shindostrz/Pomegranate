@@ -1,6 +1,6 @@
  <% unless current_user %>
   <div id="blurb">
-    <p>
+    <p> <!-- need to add partial here -->
       City streets are used by all modes of transit, but cyclists are especially vulnerable to conditions on the road. <strong>Bikeway</strong> makes your bicycle travels safer and more convenient by showing you the potential hazards in your daily routes. Join the <strong>Bikeway</strong> community by contributing your experience, and together we can keep the streets safe for everyone!
     </p>
   </div>
@@ -11,8 +11,10 @@
     <button id="add-marker">Add Hazard/Accident</button>
     <p></p>
 <!--     <button id="done-marker">Done</button> -->
+  <% if current_user %> <!-- when login in current user is allowed access to add marker -->
+    <button id="add-marker">Add Marker</button><button id="done-marker">Done</button>
   <% end %>
-  <div id="directions-form">
+  <div id="directions-form"> <!-- direction feature to/from location -->
     <h2>Enter a Route</h2>
     <form>
       <input id="origin" type="text" placeholder="Origin" size="40"><br>
@@ -23,14 +25,14 @@
   <div id="directionsPanel"></div>
 <hr>
   <footer>
-    <small>
+    <small> <!-- contact info -->
       Created by: <%= link_to 'Amy MacKinnon', 'http://amy-mac.com', title: 'Amy\'s Site', target: '_blank' %>, <%= link_to 'Francisco Orozco', 'https://github.com/fo95116', title: 'Githug', target: '_blank' %>, <%= link_to 'Shindo N. Strzelczyk', 'http://github.com/shindostrz', title: 'Shindo\'s Github', target: '_blank' %>, and <%= link_to 'Richard Yang', 'https://github.com/elyrly', title: 'Github', target: '_blank' %> at <%= link_to 'General Assembly', 'http://www.generalassemb.ly', title: 'General Assembly', target: '_blank' %>
     </small>
   </footer>
 
 </div>
 
-<div id="map-canvas"></div>
+<div id="map-canvas"></div> <!-- google map api (display map) -->
 
 <div id="popup">
   <div id="inner-popup">
