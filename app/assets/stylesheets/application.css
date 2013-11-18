@@ -180,6 +180,7 @@ h2 {
   border-radius: 3px;
   font-family: "brandon-grotesque";
   cursor: pointer;
+  padding: 7px;
 }
 
 .upvote, .downvote {
