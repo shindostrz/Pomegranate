@@ -1,3 +1,4 @@
+//inforWindowTemplate thats associated with individual hazard markers
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<%= hazard_type %></strong><br><% if (description) { %><%= description %><br><% } %><small><% var added = new Date(created_at) %>'
   + '<% var year = added.getFullYear(); var day = added.getDate(); var month = added.getMonth(); %>'
@@ -6,12 +7,14 @@ var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<% if (CURRENT_USER) { if (CURRENT_USER["id"] === user_id) { %><a href="/hazards/<%= id %>" class="delete" data-method="delete" data-remote="true" rel="nofollow">'
   + 'Delete</a><% } } %></p>');
 
+//prepopulated info from Bay Citizens
 var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</strong>'
   + '<% if (accident_date) { %><br><% var accidentDate = new Date(accident_date) %>'
   + '<% var year = accidentDate.getFullYear(); var day = accidentDate.getDate(); var month = accidentDate.getMonth(); %>'
   + '<%= year %>-<%= month %>-<%= day %><% } %><br><%= details %></p>'
   + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %>');
 
+//Empty array to be populated
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
 VOTES = [];
@@ -32,22 +35,22 @@ var marker;
     getGeoLocation();
   });
  };
-
+//neccessary lines of code for google map api routes
 var map;
 var directionsService, directionsDisplay;
-
+//geo loaction of each individual user
 var getGeoLocation = function() {
   if (!navigator.geolocation){
     output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
     return;
   }
-
+//position of current location
   function success(position) {
       userLat = position.coords.latitude;
       userLong = position.coords.longitude;
       INITIALIZE();
   }
-
+//default location if error is found
   function error() {
     userLat = 37.7833;
     userLong = -122.4167;
@@ -58,7 +61,7 @@ var getGeoLocation = function() {
 };
 
 function INITIALIZE() {
-
+//google map api routes (direction)
   directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
   directionsService = new google.maps.DirectionsService();
 
@@ -66,18 +69,18 @@ function INITIALIZE() {
   var controlDiv = document.createElement('DIV');
     $(controlDiv).addClass('gmap-control-container')
                  .addClass('gmnoprint');
-
+  //User interactive toggle button
   var controlUI = document.createElement('DIV');
     $(controlUI).addClass('gmap-control');
     $(controlUI).text('Bicycle Routes');
     $(controlDiv).append(controlUI);
-
+  //content parameters
   var legend = '<ul>'
              + '<li><span id="trail">&nbsp;&nbsp;</span><span> Trails </span></li>'
              + '<li><span id="dedicated-lane">&nbsp;&nbsp;</span><span> Dedicated lanes </span></li>'
              + '<li><span id="friendly">&nbsp;&nbsp;</span><span> Bicycle friendly roads </span></li>'
              + '</ul>';
-
+  //action neccessary to toggle legend event
   var controlLegend = document.createElement('DIV');
     $(controlLegend).addClass('gmap-control-legend');
     $(controlLegend).html(legend);
@@ -92,7 +95,7 @@ function INITIALIZE() {
     .mouseleave(function() {
         $(controlLegend).hide();
     });
-
+    //function for user lat & lng
   var userLatlng = new google.maps.LatLng(userLat, userLong);
   //zoomed in, centering on the latlng above
   var mapOptions = {
@@ -100,7 +103,6 @@ function INITIALIZE() {
     center: userLatlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-
   //allow us to use maptions and uses id from index.html.erb
   map = new google.maps.Map(
       document.getElementById('map-canvas'),
@@ -154,7 +156,7 @@ function INITIALIZE() {
       };
     })(deaths, x));
   });
-
+//optional code to change cluster icons
 var clusterStyles = [
  {height: 60,
     url: "http://blendmein.com/collections2/entypo-entypo/light%20up.png",
@@ -174,6 +176,10 @@ var clusterStyles = [
 
   var mcOptions = {gridSize: 50, maxZoom: 15}; //needs to add clusterstyle
 
+  //options for markerclusterer
+  var mcOptions = {gridSize: 100, maxZoom: 15}; //needs to add clusterstyle
+  //function that calls for markerclusterer
+
   var mc = new MarkerClusterer(map,markersArray, mcOptions);
 
   //console.log(mc);
@@ -183,7 +189,7 @@ var clusterStyles = [
 
 //end of initalize function
 }
-
+//function to calculate routes
 function calcRoute() {
 
   var request = {
@@ -226,18 +232,18 @@ function userMarker(location) {
     $('#add-marker').next('p').remove();
   });
 }
-
+//delete marker function
 var clearMarker = function(marker) {
   marker.setMap(null);
 };
-
+//??
 var setForm = function(lat, lng) {
   $('#hazard_latitude').val(lat);
   $('#hazard_longitude').val(lng);
   $('#accident_latitude').val(lat);
   $('#accident_longitude').val(lng);
 };
-
+//??
 var clearForm = function() {
   $('#hazard_latitude').val('');
   $('#hazard_longitude').val('');
@@ -247,10 +253,10 @@ var clearForm = function() {
   $('#accident_details').val('');
 };
 
-
+//voting feature
 $(document).ready(function() {
   getHazardData();
-
+//ajax call onclick upvote
   $('div').on("click", ".upvote", function(event){
   var $hazardId = $(this).attr("data-id");
   var $voteUrl = '/hazards/'+ $hazardId +'/votes';
@@ -266,7 +272,7 @@ $(document).ready(function() {
   });
 
 });
-
+//ajaz call downvote onclick
   $('div').on("click", ".downvote", function(event) {
     var $hazardId = $(this).attr("data-id");
     var $voteUrl = '/hazards/'+ $hazardId +'/votes';
@@ -277,10 +283,14 @@ $(document).ready(function() {
         "vote": false
       }
     }).done(function(response){
+
       getHazardData();
+
+      //console.log(response);
+
     });
   });
-
+//ajax call for sidebar onclick directs user to click map to add marker
   $('#add-marker').on("click", function(event) {
     $('#add-marker').next('p').empty();
     $('#add-marker').next('p').append('Click on map to place marker');
@@ -292,13 +302,16 @@ $(document).ready(function() {
       userMarker(e.latLng);
     });
   });
-
+//ajax call when user is done adding markers they state done
   $('#done-marker').on("click", function(event) {
+
+    //console.log("working");
+
     google.maps.event.clearListeners(map, 'click');
   });
 
 });
-
+//draggable marker option
 var rendererOptions = {
   draggable: true
 };
