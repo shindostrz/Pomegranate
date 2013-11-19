@@ -247,38 +247,30 @@ var clearForm = function() {
   $('#accident_details').val('');
 };
 
+  var voteCall = function(hazardId, vote, callback){
+    $.ajax({
+      url: '/hazards/'+ hazardId +'/votes',
+      type: 'post',
+      data: {
+        "vote": vote
+      }
+    }).done(function(response){
+      callback();
+    });
+  };
 
 $(document).ready(function() {
   getHazardData();
 
+
   $('div').on("click", ".upvote", function(event){
   var $hazardId = $(this).attr("data-id");
-  var $voteUrl = '/hazards/'+ $hazardId +'/votes';
-  console.log($voteUrl);
-    $.ajax({
-    url: $voteUrl,
-    type: 'post',
-    data: {
-      "vote": true
-    }
-  }).done(function(response){
-    getHazardData();
+  voteCall($hazardId, true, getHazardData);
   });
-
-});
 
   $('div').on("click", ".downvote", function(event) {
     var $hazardId = $(this).attr("data-id");
-    var $voteUrl = '/hazards/'+ $hazardId +'/votes';
-      $.ajax({
-      url: $voteUrl,
-      type: 'post',
-      data: {
-        "vote": false
-      }
-    }).done(function(response){
-      getHazardData();
-    });
+  voteCall($hazardId, false, getHazardData);
   });
 
   $('#add-marker').on("click", function(event) {
