@@ -1,15 +1,15 @@
 var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<%= hazard_type %></strong><br><% if (description) { %><%= description %><br><% } %><small><% var added = new Date(created_at) %>'
-  + '<% var year = added.getFullYear(); var day = added.getDate(); var month = added.getMonth(); %>'
-  + '<%= year %>-<%= month %>-<%= day %></small></p><p><img src="/assets/upvote.png" alt="Up Vote" class="upvote" data-id="<%= id %>"><%= votes %>'
+  + '<% var dateString = added.toLocaleDateString(); %>'
+  + '<%= dateString %></small></p><p><img src="/assets/upvote.png" alt="Up Vote" class="upvote" data-id="<%= id %>"><%= votes %>'
   + '<img src="/assets/downvote.png" alt="Down Vote" class="downvote" data-id="<%= id %>">'
   + '<% if (CURRENT_USER) { if (CURRENT_USER["id"] === user_id) { %><a href="/hazards/<%= id %>" class="delete" data-method="delete" data-remote="true" rel="nofollow">'
   + 'Delete</a><% } } %></p>');
 
 var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</strong>'
   + '<% if (accident_date) { %><br><% var accidentDate = new Date(accident_date) %>'
-  + '<% var year = accidentDate.getFullYear(); var day = accidentDate.getDate(); var month = accidentDate.getMonth(); %>'
-  + '<%= year %>-<%= month %>-<%= day %><% } %><br><%= details %></p>'
+  + '<% var dateString = added.toLocaleDateString(); %>'
+  + '<%= dateString %><% } %><br><%= details %></p>'
   + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %>');
 
 ACCIDENT_DATA = [];
@@ -219,11 +219,11 @@ function userMarker(location) {
   })(marker));
   $('#hazard_button').on('click', function(event) {
     $('#popup').delay(500).fadeOut();
-    $('#add-marker').next('p').remove();
+    $('#add-marker').next('p').empty();
   });
   $('#accident_button').on('click', function(event) {
     $('#popup').delay(500).fadeOut();
-    $('#add-marker').next('p').remove();
+    $('#add-marker').next('p').empty();
   });
 }
 
@@ -247,21 +247,24 @@ var clearForm = function() {
   $('#accident_details').val('');
 };
 
-  var voteCall = function(hazardId, vote, callback){
-    $.ajax({
-      url: '/hazards/'+ hazardId +'/votes',
-      type: 'post',
-      data: {
-        "vote": vote
-      }
-    }).done(function(response){
-      callback();
-    });
-  };
+var voteCall = function(hazardId, vote, callback){
+  $.ajax({
+    url: '/hazards/'+ hazardId +'/votes',
+    type: 'post',
+    data: {
+      "vote": vote
+    }
+  }).done(function(response){
+    callback();
+  });
+};
+
+var rendererOptions = {
+  draggable: true
+};
 
 $(document).ready(function() {
   getHazardData();
-
 
   $('div').on("click", ".upvote", function(event){
   var $hazardId = $(this).attr("data-id");
@@ -290,7 +293,3 @@ $(document).ready(function() {
   });
 
 });
-
-var rendererOptions = {
-  draggable: true
-};
