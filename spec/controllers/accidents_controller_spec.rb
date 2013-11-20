@@ -2,25 +2,20 @@ require 'spec_helper'
 
 describe AccidentsController do
 
-  describe "GET 'index'" do
-    it "returns http success" do
+  describe "GET index" do
+    it "assigns @accidents" do
+      accidents = Accident.all
       get 'index'
-      response.should be_success
+      expect(assigns(:accidents)).to eq(Accident.all)
+    end
+
+    it 'renders JSON' do
+      
     end
   end
 
   describe "GET 'create'" do
-    it "returns http success" do
-      get 'create'
-      response.should be_success
-    end
-  end
 
-  describe "GET 'destroy'" do
-    it "returns http success" do
-      get 'destroy'
-      response.should be_success
-    end
   end
 
 end
