@@ -12,12 +12,13 @@ gem 'sinatra', require: false
 gem 'slim'
 gem 'sidetiq', '>= 0.4.3'
 gem 'unicorn'
-gem 'zeus'
 
 group :development, :test do
+  gem 'konacha'
   gem 'rspec-rails'
   gem 'pry-rails'
   gem 'shoulda-matchers'
+  gem 'zeus'
 end
 
 
@@ -40,9 +41,6 @@ gem 'jquery-rails'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
