@@ -3,7 +3,7 @@ var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
   + '<% var dateString = added.toLocaleDateString(); %>'
   + '<%= dateString %></small></p><p><img src="/assets/upvote.png" alt="Up Vote" class="upvote" data-id="<%= id %>"><%= votes %>'
   + '<img src="/assets/downvote.png" alt="Down Vote" class="downvote" data-id="<%= id %>">'
-  + '<% if (CURRENT_USER) { if (CURRENT_USER["id"] === user_id) { %><a href="/hazards/<%= id %>" class="delete" data-method="delete" data-remote="true" rel="nofollow">'
+  + '<% if (current_user) { if (current_user["id"] === user_id) { %><a href="/hazards/<%= id %>" class="delete" data-method="delete" data-remote="true" rel="nofollow">'
   + 'Delete</a><% } } %></p>');
 
 var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</strong>'
@@ -15,8 +15,7 @@ var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</stron
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
 VOTES = [];
-var CURRENT_USER;
-
+var current_user;
 var marker;
 var map;
 var directionsService, directionsDisplay;
@@ -30,7 +29,7 @@ var markersArray = [];
   }).done(function(data) {
     HAZARD_DATA = data['hazards'];
     VOTES = data['votes'];
-    CURRENT_USER = data['currentUser'];
+    current_user = data['currentUser'];
     ACCIDENT_DATA = data['accidents'];
     getGeoLocation();
   });
@@ -57,6 +56,14 @@ var getGeoLocation = function() {
   navigator.geolocation.getCurrentPosition(success, error);
 };
 
+var mapOptions = function(zoom, location) {
+  var mapStuff = {
+    zoom: zoom,
+    center: location,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  return mapStuff;
+};
 
 // function to drop markers for hazards
 var dropHazards = function() {
@@ -105,11 +112,12 @@ var dropAccidents = function() {
 };
 
 function initialize() {
+  markersArray = [];
 
   directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
   directionsService = new google.maps.DirectionsService();
 
-  //toogle button for bicycle routes legend
+  //toggle button for bicycle routes legend
   var controlDiv = document.createElement('DIV');
     $(controlDiv).addClass('gmap-control-container')
                  .addClass('gmnoprint');
@@ -141,21 +149,17 @@ function initialize() {
     });
 
   var userLatlng = new google.maps.LatLng(userLat, userLong);
-  //zoomed in, centering on the latlng above
-  var mapOptions = {
-    zoom: 13,
-    center: userLatlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
 
   //allow us to use maptions and uses id from index.html.erb
   map = new google.maps.Map(
       document.getElementById('map-canvas'),
-      mapOptions);
-    directionsDisplay.setMap(map);
-    directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+      mapOptions(13, userLatlng));
+  
+  // Directions layer
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
-  //bikelayer
+  // bikelayer
   var bikeLayer = new google.maps.BicyclingLayer();
   bikeLayer.setMap(map);
 
@@ -163,28 +167,26 @@ function initialize() {
   infowindow = new google.maps.InfoWindow();
   newPinInfoWindow = new google.maps.InfoWindow();
 
-var clusterStyles = [
- {height: 60,
-    url: "http://blendmein.com/collections2/entypo-entypo/light%20up.png",
-    width: 60,
-    textSize: 10
-},
- {height: 60,
-    url: "http://blendmein.com/collections2/entypo-entypo/light%20up.png",
-    width: 60,
-    textSize: 10
-},
+  var clusterStyles = [
     {height: 60,
-    url: "http://blendmein.com/collections2/entypo-entypo/light%20up.png",
-    width: 60,
-    textSize: 10
-}];
+      url: "http://blendmein.com/collections2/entypo-entypo/light%20up.png",
+      width: 60,
+      textSize: 10
+    },
+    {height: 60,
+      url: "http://blendmein.com/collections2/entypo-entypo/light%20up.png",
+      width: 60,
+      textSize: 10
+    },
+    {height: 60,
+      url: "http://blendmein.com/collections2/entypo-entypo/light%20up.png",
+      width: 60,
+      textSize: 10
+  }];
 
   var mcOptions = {gridSize: 50, maxZoom: 15}; //needs to add clusterstyle
 
   var mc = new MarkerClusterer(map,markersArray, mcOptions);
-
-  //console.log(mc);
 
   //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
@@ -220,17 +222,22 @@ function userMarker(location) {
     draggable: true,
     animation: google.maps.Animation.DROP
   });
-  setForm(marker.getPosition().ob, marker.getPosition().pb);
+
+  setForm(location.ob, location.pb);
+
   map.setCenter(location);
+
   google.maps.event.addListener(marker, 'dragend', (function(marker) {
     return function() {
       setForm(marker.getPosition().ob, marker.getPosition().pb);
     };
   })(marker));
+
   $('#hazard_button').on('click', function(event) {
     $('#popup').delay(500).fadeOut();
     $('#add-marker').next('p').empty();
   });
+
   $('#accident_button').on('click', function(event) {
     $('#popup').delay(500).fadeOut();
     $('#add-marker').next('p').empty();
