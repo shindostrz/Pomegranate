@@ -18,6 +18,9 @@ VOTES = [];
 var CURRENT_USER;
 
 var marker;
+var map;
+var directionsService, directionsDisplay;
+var markersArray = [];
 
 //call to controller for all database info needed
  var getHazardData = function() {
@@ -33,9 +36,6 @@ var marker;
   });
  };
 
-var map;
-var directionsService, directionsDisplay;
-
 var getGeoLocation = function() {
   if (!navigator.geolocation){
     output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
@@ -45,19 +45,66 @@ var getGeoLocation = function() {
   function success(position) {
       userLat = position.coords.latitude;
       userLong = position.coords.longitude;
-      INITIALIZE();
+      initialize();
   }
 
   function error() {
     userLat = 37.7833;
     userLong = -122.4167;
-    INITIALIZE();
+    initialize();
   }
 
   navigator.geolocation.getCurrentPosition(success, error);
 };
 
-function INITIALIZE() {
+
+// function to drop markers for hazards
+var dropHazards = function() {
+  var hazards, i;
+  _.each(HAZARD_DATA, function(hazard) {
+    hazards = new google.maps.Marker({
+      icon: '/assets/hazard.png',
+      position: new google.maps.LatLng(hazard['latitude'], hazard['longitude']),
+      animation: google.maps.Animation.DROP,
+      map: map
+    });
+
+    markersArray.push(hazards);
+
+    google.maps.event.addListener(hazards, 'click', (function(hazards, i) {
+      return function() {
+        var hazardVotes = _.findWhere(VOTES, {hazard_id: hazard.id});
+        hazard['votes'] = hazardVotes['upvotes'];
+        infowindow.setContent(infoWindowTemplate(hazard));
+        infowindow.open(map, hazards);
+      };
+    })(hazards, i));
+  });
+};
+
+// function to drop markers for accidents
+var dropAccidents = function() {
+  var deaths, x;
+  _.each(ACCIDENT_DATA, function(accident) {
+    deaths = new google.maps.Marker({
+      icon: '/assets/error.png',
+      position: new google.maps.LatLng(accident['latitude'], accident['longitude']),
+      animation: google.maps.Animation.DROP,
+      map: map
+    });
+
+    markersArray.push(deaths);
+
+    google.maps.event.addListener(deaths, 'click', (function(deaths, x) {
+      return function() {
+        infowindow.setContent(infoWindowTemplateAccidents(accident));
+        infowindow.open(map, deaths);
+      };
+    })(deaths, x));
+  });
+};
+
+function initialize() {
 
   directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
   directionsService = new google.maps.DirectionsService();
@@ -116,45 +163,6 @@ function INITIALIZE() {
   infowindow = new google.maps.InfoWindow();
   newPinInfoWindow = new google.maps.InfoWindow();
 
-  var markersArray = [];
-  //marker dropped onto map for hazards
-  var hazards, i;
-  _.each(HAZARD_DATA, function(hazard) {
-    hazards = new google.maps.Marker({
-      icon: '/assets/hazard.png',
-      position: new google.maps.LatLng(hazard['latitude'], hazard['longitude']),
-      animation: google.maps.Animation.DROP,
-      map:map
-    });
-    markersArray.push(hazards);
-    google.maps.event.addListener(hazards, 'click', (function(hazards, i) {
-      return function() {
-        var hazardVotes = _.findWhere(VOTES, {hazard_id: hazard.id});
-        hazard['votes'] = hazardVotes['upvotes'];
-        infowindow.setContent(infoWindowTemplate(hazard));
-        infowindow.open(map, hazards);
-      };
-    })(hazards, i));
-  });
-
-  //marker dropped onto map for accidents
-  var deaths, x;
-  _.each(ACCIDENT_DATA, function(accident) {
-    deaths = new google.maps.Marker({
-      icon: '/assets/error.png',
-      position: new google.maps.LatLng(accident['latitude'], accident['longitude']),
-      animation: google.maps.Animation.DROP,
-      map: map
-  });
-    markersArray.push(deaths);
-    google.maps.event.addListener(deaths, 'click', (function(deaths, x) {
-      return function() {
-        infowindow.setContent(infoWindowTemplateAccidents(accident));
-        infowindow.open(map, deaths);
-      };
-    })(deaths, x));
-  });
-
 var clusterStyles = [
  {height: 60,
     url: "http://blendmein.com/collections2/entypo-entypo/light%20up.png",
@@ -181,6 +189,8 @@ var clusterStyles = [
   //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
 
+  dropHazards();
+  dropAccidents();
 //end of initalize function
 }
 
