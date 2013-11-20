@@ -15,7 +15,7 @@ var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</stron
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
 VOTES = [];
-var current_user;
+var current_user; 
 var marker;
 var map;
 var directionsService, directionsDisplay;
@@ -284,13 +284,13 @@ $(document).ready(function() {
   getHazardData();
 
   $('div').on("click", ".upvote", function(event){
-  var $hazardId = $(this).attr("data-id");
-  voteCall($hazardId, true, getHazardData);
+    var $hazardId = $(this).attr("data-id");
+    voteCall($hazardId, true, getHazardData);
   });
 
   $('div').on("click", ".downvote", function(event) {
     var $hazardId = $(this).attr("data-id");
-  voteCall($hazardId, false, getHazardData);
+    voteCall($hazardId, false, getHazardData);
   });
 
   $('#add-marker').on("click", function(event) {
