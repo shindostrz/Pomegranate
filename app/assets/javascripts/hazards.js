@@ -186,13 +186,13 @@ function initialize() {
 
   var mcOptions = {gridSize: 50, maxZoom: 15}; //needs to add clusterstyle
 
-  var mc = new MarkerClusterer(map,markersArray, mcOptions);
-
   //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
 
   dropHazards();
   dropAccidents();
+  
+  var mc = new MarkerClusterer(map,markersArray, mcOptions);
 //end of initalize function
 }
 
