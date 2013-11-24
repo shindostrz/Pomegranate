@@ -8,7 +8,7 @@ var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
 
 var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</strong>'
   + '<% if (accident_date) { %><br><% var accidentDate = new Date(accident_date) %>'
-  + '<% var dateString = added.toLocaleDateString(); %>'
+  + '<% var dateString = accidentDate.toLocaleDateString(); %>'
   + '<%= dateString %><% } %><br><%= details %></p>'
   + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %>');
 
@@ -191,7 +191,7 @@ function initialize() {
 
   dropHazards();
   dropAccidents();
-  
+
   var mc = new MarkerClusterer(map,markersArray, mcOptions);
 //end of initalize function
 }
