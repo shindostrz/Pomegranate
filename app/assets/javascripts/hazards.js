@@ -15,7 +15,7 @@ var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</stron
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
 VOTES = [];
-var current_user; 
+var current_user;
 var marker;
 var map;
 var directionsService, directionsDisplay;
