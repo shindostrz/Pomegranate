@@ -8,7 +8,7 @@ var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
 
 var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</strong>'
   + '<% if (accident_date) { %><br><% var accidentDate = new Date(accident_date) %>'
-  + '<% var dateString = added.toLocaleDateString(); %>'
+  + '<% var dateString = accidentDate.toLocaleDateString(); %>'
   + '<%= dateString %><% } %><br><%= details %></p>'
   + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %>');
 
@@ -186,13 +186,13 @@ function initialize() {
 
   var mcOptions = {gridSize: 50, maxZoom: 15}; //needs to add clusterstyle
 
-  var mc = new MarkerClusterer(map,markersArray, mcOptions);
-
   //append toogle button to the top right of map
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
 
   dropHazards();
   dropAccidents();
+
+  var mc = new MarkerClusterer(map,markersArray, mcOptions);
 //end of initalize function
 }
 
@@ -284,13 +284,13 @@ $(document).ready(function() {
   getHazardData();
 
   $('div').on("click", ".upvote", function(event){
-  var $hazardId = $(this).attr("data-id");
-  voteCall($hazardId, true, getHazardData);
+    var $hazardId = $(this).attr("data-id");
+    voteCall($hazardId, true, getHazardData);
   });
 
   $('div').on("click", ".downvote", function(event) {
     var $hazardId = $(this).attr("data-id");
-  voteCall($hazardId, false, getHazardData);
+    voteCall($hazardId, false, getHazardData);
   });
 
   $('#add-marker').on("click", function(event) {

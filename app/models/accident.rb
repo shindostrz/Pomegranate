@@ -5,7 +5,7 @@ class Accident < ActiveRecord::Base
   validates :longitude, presence: true
   validates :details, presence: true
   validates :accident_date, presence: true
-  validates :news_url, format: {with: /((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)/i}
+  validates :news_url, format: {with: /((?:https?\:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)/i}, allow_blank: true
 
   belongs_to :user
 
