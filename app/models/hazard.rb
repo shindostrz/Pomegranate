@@ -1,6 +1,6 @@
 class Hazard < ActiveRecord::Base
 
-  attr_accessible :latitude, :longitude, :description, :hazard_type, :user_id
+  attr_accessible :latitude, :longitude, :description, :hazard_type, :user_id, :vote_count
 
   belongs_to :user
   has_many :votes, dependent: :destroy

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131117204507) do
+ActiveRecord::Schema.define(:version => 20131201204814) do
 
   create_table "accidents", :force => true do |t|
     t.string   "latitude"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20131117204507) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "vote_count"
   end
 
   create_table "users", :force => true do |t|
