@@ -18,7 +18,7 @@ class VotesController < ApplicationController
       @vote = @user.votes.create(voted: params[:vote])
       @hazard.votes << @vote
       @vote = Vote.last
-      render :json => @vote
+      render json: @vote, status: 201
     end
 
 end
