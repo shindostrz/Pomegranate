@@ -1,6 +1,6 @@
 class Vote < ActiveRecord::Base
   attr_accessible :voted, :user_id, :hazard_id
-  after_commit :count_the_votes, on: :create
+  after_commit :count_the_votes
 
   belongs_to :user
   belongs_to :hazard
