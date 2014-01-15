@@ -217,19 +217,20 @@ function userMarker(location) {
     clearMarker(marker);
   }
   marker = new google.maps.Marker({
-    position: new google.maps.LatLng(location.ob, location.pb),
+    position: location,
     map: map,
     draggable: true,
     animation: google.maps.Animation.DROP
   });
 
-  setForm(location.ob, location.pb);
+  setForm(location);
 
   map.setCenter(location);
 
   google.maps.event.addListener(marker, 'dragend', (function(marker) {
     return function() {
-      setForm(marker.getPosition().ob, marker.getPosition().pb);
+      $('#popup').delay(500).fadeIn('fast');
+      setForm(marker.getPosition());
     };
   })(marker));
 
@@ -248,7 +249,10 @@ var clearMarker = function(marker) {
   marker.setMap(null);
 };
 
-var setForm = function(lat, lng) {
+var setForm = function(location) {
+  var lat = _.toArray(location)[0];
+  var lng = _.toArray(location)[1];
+  
   $('#hazard_latitude').val(lat);
   $('#hazard_longitude').val(lng);
   $('#accident_latitude').val(lat);
