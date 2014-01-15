@@ -14,7 +14,7 @@ class VoteRefreshWorker
     vote = upvote_total - downvote_total
 
     hazard = Hazard.find(hazard_id)
-    pothole.update_attributes(vote_count: vote)
+    hazard.update_attributes(vote_count: vote)
   end
 
 end
