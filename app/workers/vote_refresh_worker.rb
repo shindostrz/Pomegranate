@@ -8,7 +8,7 @@ class VoteRefreshWorker
     downvote_total = 0
 
     all_votes.each do |vote|
-      vote.upvote ? upvote_total += 1 : downvote_total += 1
+      vote.voted ? upvote_total += 1 : downvote_total += 1
     end
 
     vote = upvote_total - downvote_total
