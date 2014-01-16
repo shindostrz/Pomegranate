@@ -1,16 +1,16 @@
-var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
+var infoWindowTemplate = _.template('<div class="infoWindow" data-id="<%= id %>"><p><strong>'
   + '<%= hazard_type %></strong><br><% if (description) { %><%= description %><br><% } %><small><% var added = new Date(created_at) %>'
   + '<% var dateString = added.toLocaleDateString(); %>'
-  + '<%= dateString %></small></p><p><img src="/assets/upvote.png" alt="Up Vote" class="upvote" data-id="<%= id %>"><%= votes %>'
-  + '<img src="/assets/downvote.png" alt="Down Vote" class="downvote" data-id="<%= id %>">'
-  + '<% if (current_user) { if (current_user["id"] === user_id) { %><a href="/hazards/<%= id %>" class="delete" data-method="delete" data-remote="true" rel="nofollow">'
-  + 'Delete</a><% } } %></p>');
+  + '<%= dateString %></small></p><p><img src="/assets/upvote.png" alt="Up Vote" class="upvote" data-id="<%= id %>"><span class="voteCount" data=id="<%= id %>"><%= vote_count %></span>'
+  + '<img src="/assets/downvote.png" alt="Down Vote" class="downvote" data-id="<%= id %>"></p>'
+  + '<p class="delete"><% if (current_user) { if (current_user["id"] === user_id) { %><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
+  + 'Delete</a><% } } %></p></div>');
 
-var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</strong>'
+var infoWindowTemplateAccidents = _.template('<div class="infoWindow"><p><strong>Bicycle Accident</strong>'
   + '<% if (accident_date) { %><br><% var accidentDate = new Date(accident_date) %>'
   + '<% var dateString = accidentDate.toLocaleDateString(); %>'
   + '<%= dateString %><% } %><br><%= details %></p>'
-  + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %>');
+  + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %></div>');
 
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
@@ -28,7 +28,6 @@ var markersArray = [];
     type: 'GET'
   }).done(function(data) {
     HAZARD_DATA = data['hazards'];
-    VOTES = data['votes'];
     current_user = data['currentUser'];
     ACCIDENT_DATA = data['accidents'];
     getGeoLocation();
@@ -80,8 +79,6 @@ var dropHazards = function() {
 
     google.maps.event.addListener(hazards, 'click', (function(hazards, i) {
       return function() {
-        var hazardVotes = _.findWhere(VOTES, {hazard_id: hazard.id});
-        hazard['votes'] = hazardVotes['upvotes'];
         infowindow.setContent(infoWindowTemplate(hazard));
         infowindow.open(map, hazards);
       };
@@ -268,6 +265,7 @@ var clearForm = function() {
   $('#accident_details').val('');
 };
 
+// Updates the database with the vote
 var voteCall = function(hazardId, vote, callback){
   $.ajax({
     url: '/hazards/'+ hazardId +'/votes',
@@ -276,8 +274,25 @@ var voteCall = function(hazardId, vote, callback){
       "vote": vote
     }
   }).done(function(response){
-    callback();
+    callback(response);
   });
+};
+
+// This refreshes the vote count in the infoboxes after user votes
+var updateVoteCount = function(data) {
+  var $countDiv = $('.voteCount');
+  setTimeout(function() {
+    $.getJSON("/hazards.json", function(json) {
+      hazard_data = json['hazards'];
+      for (var i in hazard_data) {
+        if (hazard_data[i]["id"] == data['hazard_id']) {
+          var $newValue = hazard_data[i]["vote_count"];
+          console.log(hazard_data[i]["vote_count"]);
+          $countDiv.html($newValue);
+        }
+      }
+    });
+  }, 150);
 };
 
 var rendererOptions = {
@@ -289,12 +304,12 @@ $(document).ready(function() {
 
   $('div').on("click", ".upvote", function(event){
     var $hazardId = $(this).attr("data-id");
-    voteCall($hazardId, true, getHazardData);
+    voteCall($hazardId, true, updateVoteCount);
   });
 
   $('div').on("click", ".downvote", function(event) {
     var $hazardId = $(this).attr("data-id");
-    voteCall($hazardId, false, getHazardData);
+    voteCall($hazardId, false, updateVoteCount);
   });
 
   $('#add-marker').on("click", function(event) {

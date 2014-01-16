@@ -1,6 +1,7 @@
 Pomegranate::Application.routes.draw do
 
   require 'sidekiq/web'
+  require 'sidetiq/web'
 
   root to: "hazards#index"
 

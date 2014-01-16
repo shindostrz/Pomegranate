@@ -2,7 +2,7 @@ class VoteWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  sidekiq_options queue: :vote_tally
+  # sidekiq_options queue: :vote_tally
 
   recurrence { hourly(12) }
 
@@ -17,7 +17,6 @@ class VoteWorker
       end
 
     end
-
   end
 
 end
