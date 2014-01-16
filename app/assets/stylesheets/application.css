@@ -209,6 +209,16 @@ h2 {
   padding-right: 2px;
 }
 
+.infoWindow {
+  width: 170px;
+  text-align: center;
+}
+
+.gm-style .gm-style-iw div, .gm-style .gm-style-iw span {
+  font-size: 1.1em;
+  text-align: center;
+}
+
 #route_button:hover, #add-marker:hover, #done-marker:hover, button:hover {
   background-color: #9762A2;
   color: #fff;

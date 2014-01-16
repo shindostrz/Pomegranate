@@ -1,16 +1,16 @@
-var infoWindowTemplate = _.template('<p data-id="<%= id %>"><strong>'
+var infoWindowTemplate = _.template('<div class="infoWindow" data-id="<%= id %>"><p><strong>'
   + '<%= hazard_type %></strong><br><% if (description) { %><%= description %><br><% } %><small><% var added = new Date(created_at) %>'
   + '<% var dateString = added.toLocaleDateString(); %>'
   + '<%= dateString %></small></p><p><img src="/assets/upvote.png" alt="Up Vote" class="upvote" data-id="<%= id %>"><span class="voteCount" data=id="<%= id %>"><%= vote_count %></span>'
-  + '<img src="/assets/downvote.png" alt="Down Vote" class="downvote" data-id="<%= id %>">'
-  + '<% if (current_user) { if (current_user["id"] === user_id) { %><a href="/hazards/<%= id %>" class="delete" data-method="delete" data-remote="true" rel="nofollow">'
-  + 'Delete</a><% } } %></p>');
+  + '<img src="/assets/downvote.png" alt="Down Vote" class="downvote" data-id="<%= id %>"></p>'
+  + '<p class="delete"><% if (current_user) { if (current_user["id"] === user_id) { %><a href="/hazards/<%= id %>" data-method="delete" data-remote="true" rel="nofollow">'
+  + 'Delete</a><% } } %></p></div>');
 
-var infoWindowTemplateAccidents = _.template('<p><strong>Bicycle Accident</strong>'
+var infoWindowTemplateAccidents = _.template('<div class="infoWindow"><p><strong>Bicycle Accident</strong>'
   + '<% if (accident_date) { %><br><% var accidentDate = new Date(accident_date) %>'
   + '<% var dateString = accidentDate.toLocaleDateString(); %>'
   + '<%= dateString %><% } %><br><%= details %></p>'
-  + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %>');
+  + '<% if (news_url) { %><a href="<%= news_url %>" target="_blank">News Link</a><% } %></div>');
 
 ACCIDENT_DATA = [];
 HAZARD_DATA = [];
