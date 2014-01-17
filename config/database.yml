@@ -19,7 +19,7 @@ test:
 production:
   adapter: postgresql
   database: production
-  pool: 5
+  pool: 50
   timeout: 5000
   host: localhost
   user: amy

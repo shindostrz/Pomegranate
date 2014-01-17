@@ -6,12 +6,11 @@ class HazardsController < ApplicationController
     @vote = Vote.new
     @accident = Accident.new
     @accidents = Accident.all
-    @votes = @hazard.voteCount()
     @user = current_user
 
     respond_to do |format|
       format.html
-      format.json { render :json => {hazards: @hazards, votes: @votes, currentUser: @user, accidents: @accidents} }
+      format.json { render :json => {hazards: @hazards, currentUser: @user, accidents: @accidents} }
     end
   end
 
